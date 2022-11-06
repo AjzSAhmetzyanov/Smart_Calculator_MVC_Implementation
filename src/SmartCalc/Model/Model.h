@@ -60,7 +60,8 @@ struct Stack {
             void polish_note(Stack * src, Stack ** main, Stack ** support);
             void calc_process(Stack ** main, Stack ** result);
             void remove_spaces(std::string * str, std::string * new_str);
-
+            int Check_Available_Print(std::string *src, int *n);
+            int Check_Available_Print_Func(std::string *src, int *i);
     };
 }
 #endif // MODEL_H_
