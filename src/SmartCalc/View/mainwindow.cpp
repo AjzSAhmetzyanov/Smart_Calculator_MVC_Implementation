@@ -242,45 +242,52 @@ void MainWindow::on_pushButton_29_clicked() //.
 
 void MainWindow::on_pushButton_12_clicked() // =
 {
-    if(ui->pushButton_12->isChecked()) {
-    QPushButton *Button = (QPushButton*)sender();
-    if(ui->result_console->text().contains("x")) {
-            if(!((ui->result_console->text()).toDouble())) {
-                ui->result_console->setText("Incorrect input");
-            } else {
-                double x_value = ((ui->result_console->text()).toDouble());
-                char str[1024]="";
-                QByteArray barr = ui->result_console->text().toLatin1();
-                strlcpy(str, barr, ui->result_console->text().length() + 1);
-                if ((Check_Available_Print(str, 0) == 0) && strlen(str) <= 255) {
-                    double respect = start(str, x_value);
-                    QString new_label;
-                    new_label = QString::number(respect, 'g', 15);
-                    ui->result_console->setText(new_label);
-                } else {
-                    ui->result_console->setText("Incorrect input");
-                }
+    // if(ui->pushButton_12->isChecked()) {
+    // QPushButton *Button = (QPushButton*)sender();
+    // if(ui->result_console->text().contains("x")) {
+    //         if(!((ui->result_console->text()).toDouble())) {
+    //             ui->result_console->setText("Incorrect input");
+    //         } else {
+    //             double x_value = ((ui->result_console->text()).toDouble());
+    //             char str[1024]="";
+    //             QByteArray barr = ui->result_console->text().toLatin1();
+    //             strlcpy(str, barr, ui->result_console->text().length() + 1);
+    //             if ((Check_Available_Print(str, 0) == 0) && strlen(str) <= 255) {
+    //                 double respect = start(str, x_value);
+    //                 QString new_label;
+    //                 new_label = QString::number(respect, 'g', 15);
+    //                 ui->result_console->setText(new_label);
+    //             } else {
+    //                 ui->result_console->setText("Incorrect input");
+    //             }
 
-            }
-        } else {
-            char str[1024]="";
-            QByteArray barr = ui->result_console->text().toLatin1();
-            strlcpy(str, barr, ui->result_console->text().length() + 1);
-            double respect = start(str, 0);
-            if (respect == 1.11111111) {
-                ui->result_console->setText("Incorrect input");
-                ui->result_console->setReadOnly(true);
-            } else if (respect == 2.22222222) {
-                 ui->result_console->setText("Unvailable size of input");
-                 ui->result_console->setReadOnly(true);
-            } else {
-            QString new_label;
-            new_label = QString::number(respect, 'g', 15);
-            ui->result_console->setText(new_label);
-        }
-    }
-        Button->setChecked(false);
-    }
+    //         }
+    //     } else {
+    //         char str[1024]="";
+    //         QByteArray barr = ui->result_console->text().toLatin1();
+    //         strlcpy(str, barr, ui->result_console->text().length() + 1);
+    //         double respect = start(str, 0);
+    //         if (respect == 1.11111111) {
+    //             ui->result_console->setText("Incorrect input");
+    //             ui->result_console->setReadOnly(true);
+    //         } else if (respect == 2.22222222) {
+    //              ui->result_console->setText("Unvailable size of input");
+    //              ui->result_console->setReadOnly(true);
+    //         } else {
+    //         QString new_label;
+    //         new_label = QString::number(respect, 'g', 15);
+    //         ui->result_console->setText(new_label);
+    //     }
+    // }
+    //     Button->setChecked(false);
+    // }
+    char str[1024]="";
+    QByteArray barr = ui->result_console->text().toLatin1();
+    strlcpy(str, barr, ui->result_console->text().length() + 1);
+    double respect = Controller_input->Calc_contr(str);
+    QString new_label;
+    new_label = QString::number(respect, 'g', 15);
+    ui->result_console->setText(new_label);
 }
 
 

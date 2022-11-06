@@ -7,15 +7,16 @@
 #include <QtGui>
 #include <QVector>
 #include <QMessageBox>
+#include "../Controller/Controller.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-#include "check_print.h"
-#ifdef __cpluplus
-}
-#endif
+// #ifdef __cplusplus
+// extern "C"
+// {
+// #endif
+// #include "../Model/check_print.h"
+// #ifdef __cpluplus
+// }
+// #endif
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,7 +31,6 @@ public:
     ~MainWindow();
 
 private slots:
-   // void digits_numbers();
 
     void operations();
 
@@ -108,6 +108,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    s21::Controller *Controller_input;
     double xBegin, xEnd, h, X, Y, yBegin, yEnd;
         int N;
         QVector<double> x, y;

@@ -1,5 +1,5 @@
-#ifndef SRC_SMARTCALC_CHECK_PRINT_H_
-#define SRC_SMARTCALC_CHECK_PRINT_H_
+#ifndef MODEL_CHECK_PRINT_H_
+#define MODEL_CHECK_PRINT_H_
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
