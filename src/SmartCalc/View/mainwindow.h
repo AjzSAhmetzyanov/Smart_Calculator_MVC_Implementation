@@ -9,15 +9,6 @@
 #include <QMessageBox>
 #include "../Controller/Controller.h"
 
-// #ifdef __cplusplus
-// extern "C"
-// {
-// #endif
-// #include "../Model/check_print.h"
-// #ifdef __cpluplus
-// }
-// #endif
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -33,6 +24,7 @@ public:
 private slots:
 
     void operations();
+    void digits_numbers();
 
     void on_pushButton_clicked();
 
@@ -98,17 +90,13 @@ private slots:
 
     void on_pushButton_32_clicked();
 
-    void on_pushButton_33_clicked();
-
     void on_pushButton_34_clicked();
 
     void on_pushButton_35_clicked();
 
-
-
 private:
     Ui::MainWindow *ui;
-    s21::Controller *Controller_input;
+    s21::Controller *Controller_input = new s21::Controller();
     double xBegin, xEnd, h, X, Y, yBegin, yEnd;
         int N;
         QVector<double> x, y;

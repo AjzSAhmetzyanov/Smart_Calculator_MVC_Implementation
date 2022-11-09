@@ -2,14 +2,14 @@
 using namespace s21;
 
 s21::Model::Model() {
-    model_cal = new Model;
+    //model_cal = new Model;
 }
 s21::Model::~Model() {
-    delete model_cal;
+ //   delete model_cal;
 }
 
 void s21::Model::parse_lexeme(char *src, Stack ** operand, double x) {
-    size_t len = strlen(src);
+    int len = strlen(src);
     for (int i = 0; i < len; i++) {
         if ((src[i] >= '0' && src[i] <= '9') || src[i] == '.') {
             char tmp[MAX] = {' '};
@@ -19,53 +19,53 @@ void s21::Model::parse_lexeme(char *src, Stack ** operand, double x) {
             }
             i--;
             double tmp_f = atof(tmp);
-            push(operand, tmp_f, NUMBER, 0);
+            push_back(operand, tmp_f, NUMBER, 0);
         } else if (src[i] == '+') {
-            push(operand, 0, PLUS, 1);
+            push_back(operand, 0, PLUS, 1);
         } else if (src[i] == '-') {
-            push(operand, 0, SUB, 1);
+            push_back(operand, 0, SUB, 1);
         } else if (src[i] == '*') {
-            push(operand, 0, MULT, 2);
+            push_back(operand, 0, MULT, 2);
         } else if (src[i] == '/') {
-            push(operand, 0, DIV, 2);
+            push_back(operand, 0, DIV, 2);
         } else if (src[i] == '^') {
-            push(operand, 0, POW, 3);
+            push_back(operand, 0, POW, 3);
         } else if (src[i] == 'm' && src[i+1] == 'o' && src[i+2] == 'd') {
             i += 2;
-            push(operand, 0, MOD, 2);
+            push_back(operand, 0, MOD, 2);
         } else if (src[i] == '(') {
-            push(operand, 0, LEFT_BR, -1);
+            push_back(operand, 0, LEFT_BR, -1);
         } else if (src[i] == ')') {
-            push(operand, 0, RIGHT_BR, -1);
+            push_back(operand, 0, RIGHT_BR, -1);
         } else if (src[i] == 'c' && src[i+1] == 'o' && src[i+2] == 's') {
             i += 2;
-            push(operand, 0, COS, 4);
+            push_back(operand, 0, COS, 4);
         } else if (src[i] == 's' && src[i+1] == 'i' && src[i+2] == 'n') {
             i += 2;
-            push(operand, 0, SIN, 4);
+            push_back(operand, 0, SIN, 4);
         } else if (src[i] == 't' && src[i+1] == 'a' && src[i+2] == 'n') {
             i += 2;
-            push(operand, 0, TAN, 4);
+            push_back(operand, 0, TAN, 4);
         } else if (src[i] == 'a' && src[i+1] == 'c' && src[i+2] == 'o' && src[i+3] == 's') {
             i += 3;
-            push(operand, 0, ACOS, 4);
+            push_back(operand, 0, ACOS, 4);
         } else if (src[i] == 'a' && src[i+1] == 's' && src[i+2] == 'i' && src[i+3] == 'n') {
             i += 3;
-            push(operand, 0, ASIN, 4);
+            push_back(operand, 0, ASIN, 4);
         } else if (src[i] == 'a' && src[i+1] == 't' && src[i+2] == 'a' && src[i+3] == 'n') {
             i += 3;
-            push(operand, 0, ATAN, 4);
+            push_back(operand, 0, ATAN, 4);
         } else if (src[i] == 's' && src[i+1] == 'q' && src[i+2] == 'r' && src[i+3] == 't') {
             i += 3;
-            push(operand, 0, SQRT, 4);
+            push_back(operand, 0, SQRT, 4);
         } else if (src[i] == 'l' && src[i+1] == 'n') {
             i += 1;
-            push(operand, 0, LN, 4);
+            push_back(operand, 0, LN, 4);
         } else if (src[i] == 'l' && src[i+1] == 'o' && src[i+2] == 'g') {
             i += 2;
-            push(operand, 0, LOG, 4);
+            push_back(operand, 0, LOG, 4);
         } else if (src[i] == 'x') {
-            push(operand, x, XXX, 0);
+            push_back(operand, x, XXX, 0);
         }
     }
 }
@@ -77,22 +77,22 @@ void s21::Model::polish_note(Stack * src, Stack ** main, Stack ** support) {
                 if ((src)-> oper == RIGHT_BR) {
                     pop_back(&src);
                     while ((*support)->oper != LEFT_BR) {
-                        push(main, (*support)->value, (*support)->oper, (*support)->priority);
+                        push_back(main, (*support)->value, (*support)->oper, (*support)->priority);
                         pop_back(support);
                     }
                     pop_back(support);
                 } else {
                     if ((src)->oper == NUMBER || (src)->oper == XXX) {
-                        push(main, (src)->value, (src)->oper, (src)->priority);
+                        push_back(main, (src)->value, (src)->oper, (src)->priority);
                         pop_back(&src);
                     } else {
                         if (*support) {
                             if ((src)->priority != -1 && (src)->priority <= (*support)->priority) {
-                                push(main, (*support)->value, (*support)->oper, (*support)->priority);
+                                push_back(main, (*support)->value, (*support)->oper, (*support)->priority);
                                 pop_back(support);
                             }
                         }
-                        push(support, (src)->value, (src)->oper, (src)->priority);
+                        push_back(support, (src)->value, (src)->oper, (src)->priority);
                         pop_back(&src);
                     }
                 }
@@ -103,7 +103,7 @@ void s21::Model::polish_note(Stack * src, Stack ** main, Stack ** support) {
         err = 0;
         if (*support) {
             while (1) {
-                push(main, (*support)->value, (*support)->oper, (*support)->priority);
+                push_back(main, (*support)->value, (*support)->oper, (*support)->priority);
                 pop_back(support);
                 if (err || !*support) break;
                 if (!(*support)->next) err++;
@@ -114,49 +114,49 @@ void s21::Model::polish_note(Stack * src, Stack ** main, Stack ** support) {
 void s21::Model::calc_process(Stack ** main, Stack ** result) {
     while ((*main) != NULL) {
         if ((*main)->oper == NUMBER || (*main)->oper == XXX) {
-            push(result, (*main)->value, (*main)->oper, (*main)->priority);
+            push_back(result, (*main)->value, (*main)->oper, (*main)->priority);
         } else if ((*main)->oper == PLUS) {
             double b = pop_num(result);
             double res = pop_num(result) + b;
-            push(result, res, XXX, 0);
+            push_back(result, res, XXX, 0);
         } else if ((*main)->oper == SUB) {
             double b = pop_num(result);
             double res = pop_num(result) - b;
-            push(result, res, XXX, 0);
+            push_back(result, res, XXX, 0);
         } else if ((*main)->oper == DIV) {
             double b = pop_num(result);
             double res = pop_num(result) / b;
-            push(result, res, XXX, 0);
+            push_back(result, res, XXX, 0);
         } else if ((*main)->oper == MULT) {
             double b = pop_num(result);
             double res = pop_num(result) * b;
-            push(result, res, XXX, 0);
+            push_back(result, res, XXX, 0);
         } else if ((*main)->oper == POW) {
             double b = pop_num(result);
             double res = pow(pop_num(result), b);
-            push(result, res, XXX, 0);
+            push_back(result, res, XXX, 0);
         } else if ((*main)->oper == MOD) {
             double b = pop_num(result);
             double res = fmod(pop_num(result), b);
-            push(result, res, XXX, 0);
+            push_back(result, res, XXX, 0);
         } else if ((*main)->oper == COS) {
-            push(result, cos(pop_num(result)), XXX, 0);
+            push_back(result, cos(pop_num(result)), XXX, 0);
         } else if ((*main)->oper == SIN) {
-            push(result, sin(pop_num(result)), XXX, 0);
+            push_back(result, sin(pop_num(result)), XXX, 0);
         } else if ((*main)->oper == TAN) {
-            push(result, tan(pop_num(result)), XXX, 0);
+            push_back(result, tan(pop_num(result)), XXX, 0);
         } else if ((*main)->oper == ACOS) {
-            push(result, acos(pop_num(result)), XXX, 0);
+            push_back(result, acos(pop_num(result)), XXX, 0);
         } else if ((*main)->oper == ASIN) {
-            push(result, asin(pop_num(result)), XXX, 0);
+            push_back(result, asin(pop_num(result)), XXX, 0);
         } else if ((*main)->oper == ATAN) {
-            push(result, atan(pop_num(result)), XXX, 0);
+            push_back(result, atan(pop_num(result)), XXX, 0);
         } else if ((*main)->oper == SQRT) {
-            push(result, sqrt(pop_num(result)), XXX, 0);
+            push_back(result, sqrt(pop_num(result)), XXX, 0);
         } else if ((*main)->oper == LN) {
-            push(result, log(pop_num(result)), XXX, 0);
+            push_back(result, log(pop_num(result)), XXX, 0);
         } else if ((*main)->oper == LOG) {
-            push(result, log10(pop_num(result)), XXX, 0);
+            push_back(result, log10(pop_num(result)), XXX, 0);
         }
         Stack * tmp = (*main);
         (*main) = (*main)->next;
@@ -195,7 +195,7 @@ double s21::Model::start(char *src, double x) {
 return res;
 }
 
-void s21::Model::push(Stack ** list, double data, value_type oper, int priority) {
+void s21::Model::push_back(Stack ** list, double data, value_type oper, int priority) {
     Stack *tmp = new Stack;
         tmp->value = data;
         tmp->priority = priority;
@@ -204,7 +204,7 @@ void s21::Model::push(Stack ** list, double data, value_type oper, int priority)
         *list = tmp;
 }
 void s21::Model::remove_spaces(char * str, char * new_str) {
-    size_t len = strlen(str);
+    int len = strlen(str);
     for (int i = 0; i < len; i++) {
         if (str[i] == ' ')
             continue;
@@ -214,7 +214,7 @@ void s21::Model::remove_spaces(char * str, char * new_str) {
 
 void s21::Model::reverse_stack(Stack * src , Stack ** dst) {
     while (src != NULL) {
-        push(dst, src->value, src->oper, src->priority);
+        push_back(dst, src->value, src->oper, src->priority);
         src = src->next;
     }
 }
@@ -241,7 +241,7 @@ double s21::Model::pop_num(Stack ** main) {
     return result;
 }
 
-int s21::Model::Check_Available_Print(char *src, int n) {
+int s21::Model::Check_Available_Print(char *src, int *n) {
     int res = FAILURE;
     size_t len = strlen(src);
     int flag_brac_1 = 0, flag_brac_2 = 0, flag_float = 0, flag_operand = 0, flag_number = 0;
@@ -285,7 +285,7 @@ int s21::Model::Check_Available_Print(char *src, int n) {
     return res;
 }
 
-int s21::Model::Check_Available_Print_Func(char *src, int i) {
+int s21::Model::Check_Available_Print_Func(char *src, int *i) {
     size_t len = strlen(src), flag_sin = 0, flag_cos = 0, flag_tan = 0, flag_asin = 0, flag_acos = 0,
             flag_atan = 0, flag_sqrt = 0, flag_ln = 0, flag_log = 0, flag_mod = 0, flag_brush = 0,
             res = FAILURE;

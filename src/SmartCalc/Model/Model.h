@@ -1,7 +1,6 @@
 #ifndef MODEL_H_
 #define MODEL_H_
 #include <iostream>
-#include "../Controller/Controller.h"
 #include <string>
 #include <stdlib.h>
 #include <cmath>
@@ -41,16 +40,16 @@ struct Stack {
 };
 
     class Model {
-        private:
-            Model* model_cal;
-            Controller* cont_cal;
+     //   private:
+           // Model* model_cal;
+           // Controller* cont_cal;
         public:
             Model();
             ~Model();
 
-            int Check_Available_Print_Func(char *src, int i);
-            int Check_Available_Print(char *src, int i);
-            void push(Stack ** list, double data, value_type oper, int priority);
+            int Check_Available_Print_Func(char *src, int *i);
+            int Check_Available_Print(char *src, int *i);
+            void push_back(Stack ** list, double data, value_type oper, int priority);
             void reverse_stack(Stack * src , Stack ** dst);
             Stack pop_back(Stack ** head);
             double pop_num(Stack ** main);
@@ -59,8 +58,6 @@ struct Stack {
             void polish_note(Stack * src, Stack ** main, Stack ** support);
             void calc_process(Stack ** main, Stack ** result);
             void remove_spaces(char * str, char * new_str);
-            int Check_Available_Print(char *src, int *n);
-            int Check_Available_Print_Func(char *src, int *i);
-    };
+};
 }
 #endif // MODEL_H_f

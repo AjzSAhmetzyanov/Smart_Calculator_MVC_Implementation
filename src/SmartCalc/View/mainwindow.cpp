@@ -7,41 +7,41 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     Controller_input = new s21::Controller();
-//    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_4, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_5, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_6, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_7, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_8, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_9, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_10, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_11, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_12, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_14, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_15, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_16, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_17, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_18, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_19, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_20, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_21, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_22, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_23, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_24, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_25, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_26, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_27, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_28, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_29, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_30, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_31, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-//    connect(ui->pushButton_32, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-    // connect(ui->pushButton_33, SIGNAL(clicked()), this, SLOT(operations()));
-    // ui->widget->xAxis->setRange(-10, 10);
-    // ui->widget->yAxis->setRange(-10, 10);
-    // ui->pushButton_12->setCheckable(true);
+    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_4, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_5, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_6, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_7, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_8, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_9, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_10, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_11, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_12, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_14, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_15, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_16, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_17, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_18, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_19, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_20, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_21, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_22, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_23, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_24, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_25, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_26, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_27, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_28, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_29, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_30, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_31, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+    connect(ui->pushButton_32, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+     connect(ui->pushButton_33, SIGNAL(clicked()), this, SLOT(operations()));
+     ui->widget->xAxis->setRange(-10, 10);
+     ui->widget->yAxis->setRange(-10, 10);
+     ui->pushButton_12->setCheckable(true);
 }
 
 MainWindow::~MainWindow()
@@ -50,13 +50,12 @@ MainWindow::~MainWindow()
     delete Controller_input;
 }
 
-//void MainWindow:: digits_numbers()
-//{
-//    QPushButton *button = (QPushButton *)sender();
-//    QString new_lable;
-//    new_lable = (ui->result_console->text() + button->text());
-//    ui->result_console->setText(new_lable);
-//}
+void MainWindow:: digits_numbers()
+{
+    QString new_lable;
+    new_lable = (ui->result_console->text());
+    ui->result_console->setText(new_lable);
+}
 
 void MainWindow::operations()
 {
@@ -244,19 +243,19 @@ void MainWindow::on_pushButton_29_clicked() //.
 
 void MainWindow::on_pushButton_12_clicked() // =
 {
-    if(ui->pushButton_12->isChecked()) {
     QPushButton *Button = (QPushButton*)sender();
     if(ui->result_console->text().contains("x")) {
             if(!((ui->result_console->text()).toDouble())) {
                 ui->result_console->setText("Incorrect input");
             } else {
                 double x_value = ((ui->result_console->text()).toDouble());
-                char str[1024]="";
-                QByteArray barr = ui->result_console->text().toLatin1();
-                strlcpy(str, barr, ui->result_console->text().length() + 1);
-                if ((Controller_input->Check_string(str, 0) == 0) && strlen(str) <= 255) {
+                QString barr = ui->result_console->text().toLatin1();
+                std::string str = barr.toStdString();
+                //str.barr(str, ui->result_console->text().length() + 1);
+                if ((Controller_input->Check_string(str, 0) == 0) && str.length() <= 255) {
                     double respect = Controller_input->Calc_contr(str, x_value);
                     QString new_label;
+                    std::cout << respect << std::endl;
                     new_label = QString::number(respect, 'g', 15);
                     ui->result_console->setText(new_label);
                 } else {
@@ -265,9 +264,8 @@ void MainWindow::on_pushButton_12_clicked() // =
 
             }
         } else {
-            char str[1024]="";
-            QByteArray barr = ui->result_console->text().toLatin1();
-            strlcpy(str, barr, ui->result_console->text().length() + 1);
+            QString barr = ui->result_console->text().toLatin1();
+            std::string str = barr.toStdString();
             double respect = Controller_input->Calc_contr(str, 0);
             if (respect == 1.11111111) {
                 ui->result_console->setText("Incorrect input");
@@ -279,7 +277,6 @@ void MainWindow::on_pushButton_12_clicked() // =
             QString new_label;
             new_label = QString::number(respect, 'g', 15);
             ui->result_console->setText(new_label);
-        }
     }
         Button->setChecked(false);
     }
@@ -321,9 +318,8 @@ void MainWindow::on_pushButton_35_clicked()
             x.clear();
             y.clear();
         } else {
-            char str[1024]="";
-            QByteArray barr = ui->result_console->text().toLatin1();
-            strlcpy(str, barr, ui->result_console->text().length() + 1);
+            QString barr = ui->result_console->text().toLatin1();
+            std::string str = barr.toStdString();
             double respect = Controller_input->Calc_contr(str, 0);
             if (respect == 1.11111111) {
                 ui->result_console->setText("Incorrect input");
@@ -338,8 +334,8 @@ void MainWindow::on_pushButton_35_clicked()
             xEnd = (ui->xmax->text()).toDouble() + h;
             yEnd = (ui->ymin->text()).toDouble();
 
-                QByteArray barr = ui->result_console->text().toLatin1();
-                strlcpy(tmp, barr, ui->result_console->text().length() + 1);
+                QString barr = ui->result_console->text().toLatin1();
+                std::string str = barr.toStdString();
                 ui->widget->xAxis->setRange(xBegin, xEnd);
                 ui->widget->yAxis->setRange(yBegin, yEnd);
                 X = xBegin;
@@ -347,7 +343,7 @@ void MainWindow::on_pushButton_35_clicked()
                 for (X = xBegin; X <= xEnd; X += h)
                 {
                     x.push_back(X);
-                    y.push_back(start(tmp, X));
+                    y.push_back(Controller_input->Calc_contr(tmp, X));
                 }
                 ui->widget->addGraph();
                 ui->widget->graph()->addData(x, y);
