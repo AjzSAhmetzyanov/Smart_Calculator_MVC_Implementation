@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    Controller_input = new s21::Controller();
 //    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(digits_numbers()));
 //    connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(digits_numbers()));
 //    connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(digits_numbers()));
@@ -37,15 +38,16 @@ MainWindow::MainWindow(QWidget *parent)
 //    connect(ui->pushButton_30, SIGNAL(clicked()), this, SLOT(digits_numbers()));
 //    connect(ui->pushButton_31, SIGNAL(clicked()), this, SLOT(digits_numbers()));
 //    connect(ui->pushButton_32, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-    connect(ui->pushButton_33, SIGNAL(clicked()), this, SLOT(operations()));
-    ui->widget->xAxis->setRange(-10, 10);
-    ui->widget->yAxis->setRange(-10, 10);
-    ui->pushButton_12->setCheckable(true);
+    // connect(ui->pushButton_33, SIGNAL(clicked()), this, SLOT(operations()));
+    // ui->widget->xAxis->setRange(-10, 10);
+    // ui->widget->yAxis->setRange(-10, 10);
+    // ui->pushButton_12->setCheckable(true);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete Controller_input;
 }
 
 //void MainWindow:: digits_numbers()
@@ -242,52 +244,45 @@ void MainWindow::on_pushButton_29_clicked() //.
 
 void MainWindow::on_pushButton_12_clicked() // =
 {
-    // if(ui->pushButton_12->isChecked()) {
-    // QPushButton *Button = (QPushButton*)sender();
-    // if(ui->result_console->text().contains("x")) {
-    //         if(!((ui->result_console->text()).toDouble())) {
-    //             ui->result_console->setText("Incorrect input");
-    //         } else {
-    //             double x_value = ((ui->result_console->text()).toDouble());
-    //             char str[1024]="";
-    //             QByteArray barr = ui->result_console->text().toLatin1();
-    //             strlcpy(str, barr, ui->result_console->text().length() + 1);
-    //             if ((Check_Available_Print(str, 0) == 0) && strlen(str) <= 255) {
-    //                 double respect = start(str, x_value);
-    //                 QString new_label;
-    //                 new_label = QString::number(respect, 'g', 15);
-    //                 ui->result_console->setText(new_label);
-    //             } else {
-    //                 ui->result_console->setText("Incorrect input");
-    //             }
+    if(ui->pushButton_12->isChecked()) {
+    QPushButton *Button = (QPushButton*)sender();
+    if(ui->result_console->text().contains("x")) {
+            if(!((ui->result_console->text()).toDouble())) {
+                ui->result_console->setText("Incorrect input");
+            } else {
+                double x_value = ((ui->result_console->text()).toDouble());
+                char str[1024]="";
+                QByteArray barr = ui->result_console->text().toLatin1();
+                strlcpy(str, barr, ui->result_console->text().length() + 1);
+                if ((Controller_input->Check_string(str, 0) == 0) && strlen(str) <= 255) {
+                    double respect = Controller_input->Calc_contr(str, x_value);
+                    QString new_label;
+                    new_label = QString::number(respect, 'g', 15);
+                    ui->result_console->setText(new_label);
+                } else {
+                    ui->result_console->setText("Incorrect input");
+                }
 
-    //         }
-    //     } else {
-    //         char str[1024]="";
-    //         QByteArray barr = ui->result_console->text().toLatin1();
-    //         strlcpy(str, barr, ui->result_console->text().length() + 1);
-    //         double respect = start(str, 0);
-    //         if (respect == 1.11111111) {
-    //             ui->result_console->setText("Incorrect input");
-    //             ui->result_console->setReadOnly(true);
-    //         } else if (respect == 2.22222222) {
-    //              ui->result_console->setText("Unvailable size of input");
-    //              ui->result_console->setReadOnly(true);
-    //         } else {
-    //         QString new_label;
-    //         new_label = QString::number(respect, 'g', 15);
-    //         ui->result_console->setText(new_label);
-    //     }
-    // }
-    //     Button->setChecked(false);
-    // }
-    char str[1024]="";
-    QByteArray barr = ui->result_console->text().toLatin1();
-    strlcpy(str, barr, ui->result_console->text().length() + 1);
-    double respect = Controller_input->Calc_contr(str);
-    QString new_label;
-    new_label = QString::number(respect, 'g', 15);
-    ui->result_console->setText(new_label);
+            }
+        } else {
+            char str[1024]="";
+            QByteArray barr = ui->result_console->text().toLatin1();
+            strlcpy(str, barr, ui->result_console->text().length() + 1);
+            double respect = Controller_input->Calc_contr(str, 0);
+            if (respect == 1.11111111) {
+                ui->result_console->setText("Incorrect input");
+                ui->result_console->setReadOnly(true);
+            } else if (respect == 2.22222222) {
+                 ui->result_console->setText("Unvailable size of input");
+                 ui->result_console->setReadOnly(true);
+            } else {
+            QString new_label;
+            new_label = QString::number(respect, 'g', 15);
+            ui->result_console->setText(new_label);
+        }
+    }
+        Button->setChecked(false);
+    }
 }
 
 
@@ -307,14 +302,6 @@ void MainWindow::on_pushButton_32_clicked() // )
 {
     ui->result_console->setText(ui->result_console->text() + ")");
 }
-
-
-
-void MainWindow::on_pushButton_33_clicked()
-{
-
-}
-
 
 void MainWindow::on_pushButton_34_clicked()
 {
@@ -337,7 +324,7 @@ void MainWindow::on_pushButton_35_clicked()
             char str[1024]="";
             QByteArray barr = ui->result_console->text().toLatin1();
             strlcpy(str, barr, ui->result_console->text().length() + 1);
-            double respect = start(str, 0);
+            double respect = Controller_input->Calc_contr(str, 0);
             if (respect == 1.11111111) {
                 ui->result_console->setText("Incorrect input");
                 ui->result_console->setReadOnly(true);

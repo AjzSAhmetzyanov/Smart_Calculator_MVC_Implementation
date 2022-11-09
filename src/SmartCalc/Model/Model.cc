@@ -1,77 +1,70 @@
 #include "Model.h"
 using namespace s21;
+
 s21::Model::Model() {
     model_cal = new Model;
 }
-
 s21::Model::~Model() {
     delete model_cal;
 }
-double s21::Model::Calc_model(std::string *str) {
-    if(Check_Available_Print(str, 0) == 0 && str->length() <= 255) {       
-    return start(str, 0);
-    } else {
-    return -1;    
-    }
-}
 
-void s21::Model::parse_lexeme(std::string *src, Stack ** operand, double x) {
-    size_t len = src->length();
+void s21::Model::parse_lexeme(char *src, Stack ** operand, double x) {
+    size_t len = strlen(src);
     for (int i = 0; i < len; i++) {
-        if ((src[i] >= "0" && src[i] <= "9") || src[i] == ".") {
-            std::string tmp[MAX] = {" "};
+        if ((src[i] >= '0' && src[i] <= '9') || src[i] == '.') {
+            char tmp[MAX] = {' '};
             int j = 0;
-            while ((src[i] >= "0" && src[i] <= "9") || src[i] == ".") {
+            while ((src[i] >= '0' && src[i] <= '9') || src[i] == '.') {
                 tmp[j++] = src[i++];
             }
             i--;
-            double tmp_f = std::stod(*tmp);
+            double tmp_f = atof(tmp);
             push(operand, tmp_f, NUMBER, 0);
-        } else if (src[i] == "+") {
+        } else if (src[i] == '+') {
             push(operand, 0, PLUS, 1);
-        } else if (src[i] == "-") {
+        } else if (src[i] == '-') {
             push(operand, 0, SUB, 1);
-        } else if (src[i] == "*") {
+        } else if (src[i] == '*') {
             push(operand, 0, MULT, 2);
-        } else if (src[i] == "/") {
+        } else if (src[i] == '/') {
             push(operand, 0, DIV, 2);
-        } else if (src[i] == "^") {
+        } else if (src[i] == '^') {
             push(operand, 0, POW, 3);
-        } else if (src[i] == "m" && src[i+1] == "o" && src[i+2] == "d") {
+        } else if (src[i] == 'm' && src[i+1] == 'o' && src[i+2] == 'd') {
             i += 2;
             push(operand, 0, MOD, 2);
-        } else if (src[i] == "(") {
+        } else if (src[i] == '(') {
             push(operand, 0, LEFT_BR, -1);
-        } else if (src[i] == ")") {
+        } else if (src[i] == ')') {
             push(operand, 0, RIGHT_BR, -1);
-        } else if (src[i] == "c" && src[i+1] == "o" && src[i+2] == "s") {
+        } else if (src[i] == 'c' && src[i+1] == 'o' && src[i+2] == 's') {
             i += 2;
             push(operand, 0, COS, 4);
-        } else if (src[i] == "s" && src[i+1] == "i" && src[i+2] == "n") {
+        } else if (src[i] == 's' && src[i+1] == 'i' && src[i+2] == 'n') {
             i += 2;
             push(operand, 0, SIN, 4);
-        } else if (src[i] == "t" && src[i+1] == "a" && src[i+2] == "n") {
+        } else if (src[i] == 't' && src[i+1] == 'a' && src[i+2] == 'n') {
             i += 2;
             push(operand, 0, TAN, 4);
-        } else if (src[i] == "a" && src[i+1] == "c" && src[i+2] == "o" && src[i+3] == "s") {
+        } else if (src[i] == 'a' && src[i+1] == 'c' && src[i+2] == 'o' && src[i+3] == 's') {
             i += 3;
             push(operand, 0, ACOS, 4);
-        } else if (src[i] == "a" && src[i+1] == "s" && src[i+2] == "i" && src[i+3] == "n") {
+        } else if (src[i] == 'a' && src[i+1] == 's' && src[i+2] == 'i' && src[i+3] == 'n') {
             i += 3;
             push(operand, 0, ASIN, 4);
-        } else if (src[i] == "a" && src[i+1] == "t" && src[i+2] == "a" && src[i+3] == "n") {
+        } else if (src[i] == 'a' && src[i+1] == 't' && src[i+2] == 'a' && src[i+3] == 'n') {
             i += 3;
             push(operand, 0, ATAN, 4);
-        } else if (src[i] == "s" && src[i+1] == "q" && src[i+2] == "r" && src[i+3] == "t") {
+        } else if (src[i] == 's' && src[i+1] == 'q' && src[i+2] == 'r' && src[i+3] == 't') {
             i += 3;
             push(operand, 0, SQRT, 4);
-        } else if (src[i] == "l" && src[i+1] == "n") {
+        } else if (src[i] == 'l' && src[i+1] == 'n') {
             i += 1;
             push(operand, 0, LN, 4);
-        } else if (src[i] == "l" && src[i+1] == "o" && src[i+2] == "g") {
+        } else if (src[i] == 'l' && src[i+1] == 'o' && src[i+2] == 'g') {
             i += 2;
             push(operand, 0, LOG, 4);
-        } else if (src[i] == "x") {
+        } else if (src[i] == 'x') {
             push(operand, x, XXX, 0);
         }
     }
@@ -171,11 +164,11 @@ void s21::Model::calc_process(Stack ** main, Stack ** result) {
     }
 }
 
-double s21::Model::start(std::string *src, double x) {
-    std::string new_str[MAX] = {0};
+double s21::Model::start(char *src, double x) {
+    char new_str[MAX] = {0};
     double res = 0;
     int i = 0;
-    size_t len = src->length();
+    size_t len = strlen(src);
     if (len < MAX) {
     remove_spaces(src, new_str);
     if (Check_Available_Print(new_str, &i) == 0 && Check_Available_Print_Func(new_str, &i) == 0) {
@@ -210,10 +203,10 @@ void s21::Model::push(Stack ** list, double data, value_type oper, int priority)
         tmp->next = *list;
         *list = tmp;
 }
-void s21::Model::remove_spaces(std::string * str, std::string * new_str) {
-    size_t len = str->length();
+void s21::Model::remove_spaces(char * str, char * new_str) {
+    size_t len = strlen(str);
     for (int i = 0; i < len; i++) {
-        if (str[i] == " ")
+        if (str[i] == ' ')
             continue;
         *new_str++ = str[i];
     }
@@ -248,36 +241,36 @@ double s21::Model::pop_num(Stack ** main) {
     return result;
 }
 
-int s21::Model::Check_Available_Print(std::string *src, int *n) {
+int s21::Model::Check_Available_Print(char *src, int n) {
     int res = FAILURE;
-    size_t len = src->length();
+    size_t len = strlen(src);
     int flag_brac_1 = 0, flag_brac_2 = 0, flag_float = 0, flag_operand = 0, flag_number = 0;
     if (len < MAX) {
         for (int i = *n; i < len; i++) {
-            if (src[i] == "(" && src[i+1] != ")") flag_brac_1++;
-            if (src[i] == ")") flag_brac_2++;
-            if (src[i] == "+" || src[i] == "-" || src[i] == "*" || src[i] == "/" || src[i] == ".") {
-                if ((src[i+1] == "+" || src[i+1] == "-" || src[i+1] == "*" || src[i+1] == "/"
-                     || src[i+1] == "." || src[i+1] == "^") || (src[i-1] == "+" || src[i-1] == "-" ||
-                     src[i-1] == "*" || src[i-1] == "/" || src[i-1] == "." || src[i-1] == "^")) {
+            if (src[i] == '(' && src[i+1] != ')') flag_brac_1++;
+            if (src[i] == ')') flag_brac_2++;
+            if (src[i] == '+' || src[i] == '-' || src[i] == '*' || src[i] == '/' || src[i] == '.') {
+                if ((src[i+1] == '+' || src[i+1] == '-' || src[i+1] == '*' || src[i+1] == '/'
+                     || src[i+1] == '.' || src[i+1] == '^') || (src[i-1] == '+' || src[i-1] == '-' ||
+                     src[i-1] == '*' || src[i-1] == '/' || src[i-1] == '.' || src[i-1] == '^')) {
                     flag_operand = 1;
                 } else {
                     flag_operand = 0;
                 }
             }
-            if ((src[i] >= "0" && src[i] <= "9") && (src[i+1] != "." && src[i-1] != ".") &&
-                    (!(src[i-1] >= "0" && src[i-1] <= "9")) && (!(src[i+1] >= "0" && src[i+1] <= "9"))
-                    && (src[i+1] != "+" && src[i-1] != "+") && (src[i+1] != "-" && src[i-1] != "-") &&
-                    (src[i+1] != "*" && src[i-1] != "*") && (src[i+1] != "/" && src[i-1] != "/") &&
-                    (src[i-1] != "^" && src[i+1] != "^") && ((src[i+1] != ")" && src[i-1] != "(") ||
-                    ((src[i+1] == ")" && src[i-1] != "(")) || (src[i+1] != ")" && src[i-1] == "("))
-                    && (src[i+1] == "m" && src[i+2] == "o" && src[i+3] == "d")) {
+            if ((src[i] >= '0' && src[i] <= '9') && (src[i+1] != '.' && src[i-1] != '.') &&
+                    (!(src[i-1] >= '0' && src[i-1] <= '9')) && (!(src[i+1] >= '0' && src[i+1] <= '9'))
+                    && (src[i+1] != '+' && src[i-1] != '+') && (src[i+1] != '-' && src[i-1] != '-') &&
+                    (src[i+1] != '*' && src[i-1] != '*') && (src[i+1] != '/' && src[i-1] != '/') &&
+                    (src[i-1] != '^' && src[i+1] != '^') && ((src[i+1] != ')' && src[i-1] != '(') ||
+                    ((src[i+1] == ')' && src[i-1] != '(')) || (src[i+1] != ')' && src[i-1] == '('))
+                    && (src[i+1] == 'm' && src[i+2] == 'o' && src[i+3] == 'd')) {
                 flag_number = 1;
             }
-            if (src[i] == "." && (!(src[i-1] >= "0" && src[i-1] <= "9"))) flag_float = 1;
-            if (src[i] >= "0" && src[i] <= "9" && src[i+1] == ".") {
-                for (int j = i+2; (src[j] >= "0" && src[j] <= "9") || src[j] == "."; j++) {
-                    if (src[j] == ".") {
+            if (src[i] == '.' && (!(src[i-1] >= '0' && src[i-1] <= '9'))) flag_float = 1;
+            if (src[i] >= '0' && src[i] <= '9' && src[i+1] == '.') {
+                for (int j = i+2; (src[j] >= '0' && src[j] <= '9') || src[j] == '.'; j++) {
+                    if (src[j] == '.') {
                                     flag_float = 1;
                                     break;
                                 } else {}
@@ -292,16 +285,16 @@ int s21::Model::Check_Available_Print(std::string *src, int *n) {
     return res;
 }
 
-int s21::Model::Check_Available_Print_Func(std::string *src, int *i) {
-    size_t len = src->length(), flag_sin = 0, flag_cos = 0, flag_tan = 0, flag_asin = 0, flag_acos = 0,
+int s21::Model::Check_Available_Print_Func(char *src, int i) {
+    size_t len = strlen(src), flag_sin = 0, flag_cos = 0, flag_tan = 0, flag_asin = 0, flag_acos = 0,
             flag_atan = 0, flag_sqrt = 0, flag_ln = 0, flag_log = 0, flag_mod = 0, flag_brush = 0,
             res = FAILURE;
     if (len <= MAX) {
-    for (int j = *i; src[j] != "\0"; j++) {
-    if (src[j] == "s" || src[j] == "c" || src[j] == "t" || src[j] == "a" || src[j] == "l" || src[j] == "m") {
-        if (src[j] == "s" && src[j+1] == "i" && src[j+2] == "n" && src[j-1] != "(") {
+    for (int j = *i; src[j] != '\0'; j++) {
+    if (src[j] == 's' || src[j] == 'c' || src[j] == 't' || src[j] == 'a' || src[j] == 'l' || src[j] == 'm') {
+        if (src[j] == 's' && src[j+1] == 'i' && src[j+2] == 'n' && src[j-1] != '(') {
             flag_sin = 1;
-            if (src[j+3] == "(") {
+            if (src[j+3] == '(') {
                 int h = j+3;
                     if (Check_Available_Print(src, &h) == 0) {
                         flag_sin = 0;
@@ -312,8 +305,8 @@ int s21::Model::Check_Available_Print_Func(std::string *src, int *i) {
                                 flag_sin = 1;
                             }
            j = j + 3;
-    } else if (src[j] == "c" && src[j+1] == "o" && src[j+2] == "s" && src[j-1] != "(") {
-            if (src[j+3] == "(") {
+    } else if (src[j] == 'c' && src[j+1] == 'o' && src[j+2] == 's' && src[j-1] != '(') {
+            if (src[j+3] == '(') {
                 flag_cos = 1;
                 int h = j+3;
                     if (Check_Available_Print(src, &h) == 0) {
@@ -325,8 +318,8 @@ int s21::Model::Check_Available_Print_Func(std::string *src, int *i) {
                 flag_cos = 1;
             }
            j = j + 3;
-    } else if (src[j] == "t" && src[j+1] == "a" && src[j+2] == "n" && src[j-1] != "(") {
-            if (src[j+3] == "(") {
+    } else if (src[j] == 't' && src[j+1] == 'a' && src[j+2] == 'n' && src[j-1] != '(') {
+            if (src[j+3] == '(') {
                 int h = j+3;
                 flag_tan = 1;
                     if (Check_Available_Print(src, &h) == 0) {
@@ -338,8 +331,8 @@ int s21::Model::Check_Available_Print_Func(std::string *src, int *i) {
                 flag_tan = 1;
              }
            j = j + 3;
-    } else if (src[j] == "a" && src[j+1] == "s" && src[j+2] == "i" && src[j+3] == "n" && src[j-1] != "(") {
-    if (src[j+4] == "(") {
+    } else if (src[j] == 'a' && src[j+1] == 's' && src[j+2] == 'i' && src[j+3] == 'n' && src[j-1] != '(') {
+    if (src[j+4] == '(') {
                 int h = j+4;
                 flag_asin = 1;
                     if (Check_Available_Print(src, &h) == 0) {
@@ -351,8 +344,8 @@ int s21::Model::Check_Available_Print_Func(std::string *src, int *i) {
            flag_asin = 1;
       }
             j = j + 4;
-    } else if (src[j] == "a" && src[j+1] == "c" && src[j+2] == "o" && src[j+3] == "s" && src[j-1] != "(") {
-            if (src[j+4] == "(") {
+    } else if (src[j] == 'a' && src[j+1] == 'c' && src[j+2] == 'o' && src[j+3] == 's' && src[j-1] != '(') {
+            if (src[j+4] == '(') {
                 int h = j+4;
                 flag_acos = 1;
                     if (Check_Available_Print(src, &h) == 0) {
@@ -364,8 +357,8 @@ int s21::Model::Check_Available_Print_Func(std::string *src, int *i) {
                             flag_acos = 1;
                  }
                     j = j + 4;
-    } else if (src[j] == "a" && src[j+1] == "t" && src[j+2] == "a" && src[j+3] == "n" && src[j-1] != "(") {
-            if (src[j+4] == "(") {
+    } else if (src[j] == 'a' && src[j+1] == 't' && src[j+2] == 'a' && src[j+3] == 'n' && src[j-1] != '(') {
+            if (src[j+4] == '(') {
                 int h = j+4;
                 flag_atan = 1;
                     if (Check_Available_Print(src, &h) == 0) {
@@ -377,8 +370,8 @@ int s21::Model::Check_Available_Print_Func(std::string *src, int *i) {
                             flag_atan = 1;
                         }
                     j = j + 4;
-    } else if (src[j] == "s" && src[j+1] == "q" && src[j+2] == "r" && src[j+3] == "t" && src[j-1] != "(") {
-            if (src[j+4] == "(") {
+    } else if (src[j] == 's' && src[j+1] == 'q' && src[j+2] == 'r' && src[j+3] == 't' && src[j-1] != '(') {
+            if (src[j+4] == '(') {
                 int h = j+4;
                 flag_sqrt = 1;
                     if (Check_Available_Print(src, &h) == 0) {
@@ -390,8 +383,8 @@ int s21::Model::Check_Available_Print_Func(std::string *src, int *i) {
                             flag_sqrt = 1;
                         }
                     j = j + 4;
-    } else if (src[j] == "l" && src[j+1] == "n" && src[j-1] != "(") {
-            if (src[j+2] == "(") {
+    } else if (src[j] == 'l' && src[j+1] == 'n' && src[j-1] != '(') {
+            if (src[j+2] == '(') {
                 int h = j+2;
                 flag_ln = 1;
                     if (Check_Available_Print(src, &h) == 0) {
@@ -403,8 +396,8 @@ int s21::Model::Check_Available_Print_Func(std::string *src, int *i) {
             flag_ln = 1;
         }
         j = j + 2;
-    } else if (src[j] == "l" && src[j+1] == "o" && src[j+2] == "g" && src[j-1] != "(") {
-            if (src[j+3] == "(") {
+    } else if (src[j] == 'l' && src[j+1] == 'o' && src[j+2] == 'g' && src[j-1] != '(') {
+            if (src[j+3] == '(') {
                 int h = j+3;
                 flag_log = 1;
                     if (Check_Available_Print(src, &h) == 0) {
@@ -416,8 +409,8 @@ int s21::Model::Check_Available_Print_Func(std::string *src, int *i) {
             flag_log = 1;
            }
             j = j + 3;
-        } else if (src[j] == "m" && src[j+1] == "o" && src[j+2] == "d") {
-        if ((src[j-1] <= "9" && src[j-1] >= "0") && (src[j+3] <= "9" && src[j+3] >= "0")) {
+        } else if (src[j] == 'm' && src[j+1] == 'o' && src[j+2] == 'd') {
+        if ((src[j-1] <= '9' && src[j-1] >= '0') && (src[j+3] <= '9' && src[j+3] >= '0')) {
                 int h = j+3;
                 flag_mod = 1;
                     if (Check_Available_Print(src, &h) == 0) {
@@ -430,7 +423,7 @@ int s21::Model::Check_Available_Print_Func(std::string *src, int *i) {
                 }
                     j = j + 3;
     }
-    } else if (src[j] == "(" || src[j] == ")" || (src[j] <= "9" && src[j] >= "0")) {
+    } else if (src[j] == '(' || src[j] == ')' || (src[j] <= '9' && src[j] >= '0')) {
         flag_brush = 0;
     } else {
         flag_brush = 1;

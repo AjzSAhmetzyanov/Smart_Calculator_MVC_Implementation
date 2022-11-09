@@ -1,13 +1,21 @@
-#include "Controller.h"
+#include "../Model/Model.h"
 
 s21::Controller::Controller() {
-    cont_str = new Controller;
+    Controller_input = new Controller;
 }
 
 s21::Controller::~Controller() {
-    delete cont_str;
+    delete Controller_input;
 }
 
-double s21::Controller::Calc_contr(std::string *str) {
-    return model_str->Calc_model(str);
+double s21::Controller::Calc_contr(char* str, double x) {
+    return model_str->start(str, x);
+}
+
+int s21::Controller::Check_string(char* str, int x) {
+    return model_str->Check_Available_Print(str, x);
+}
+
+int s21::Controller::Check_string_func(char* str, int x) {
+    return model_str->Check_Available_Print_Func(str, x);
 }

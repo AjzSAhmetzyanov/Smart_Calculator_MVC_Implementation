@@ -47,21 +47,20 @@ struct Stack {
         public:
             Model();
             ~Model();
-            
-            double Calc_model(std::string *str);
-            int Check_Available_Print_Func(std::string *src, int *i);
-            int Check_Available_Print(std::string *src, int *i);
+
+            int Check_Available_Print_Func(char *src, int i);
+            int Check_Available_Print(char *src, int i);
             void push(Stack ** list, double data, value_type oper, int priority);
             void reverse_stack(Stack * src , Stack ** dst);
             Stack pop_back(Stack ** head);
             double pop_num(Stack ** main);
-            double start(std::string * str, double x);
-            void parse_lexeme(std::string * src, Stack ** operand, double x);
+            double start(char * str, double x);
+            void parse_lexeme(char * src, Stack ** operand, double x);
             void polish_note(Stack * src, Stack ** main, Stack ** support);
             void calc_process(Stack ** main, Stack ** result);
-            void remove_spaces(std::string * str, std::string * new_str);
-            int Check_Available_Print(std::string *src, int *n);
-            int Check_Available_Print_Func(std::string *src, int *i);
+            void remove_spaces(char * str, char * new_str);
+            int Check_Available_Print(char *src, int *n);
+            int Check_Available_Print_Func(char *src, int *i);
     };
 }
-#endif // MODEL_H_
+#endif // MODEL_H_f
