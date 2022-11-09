@@ -184,7 +184,6 @@ void s21::Model::calc_process(std::list<Stack>& main, std::list<Stack>& result) 
             result.push_back(obj);
         }
     }
-    }
 }
 
 
@@ -202,7 +201,7 @@ void s21::Model::polish_note(std::list<Stack>& src, std::list<Stack>& main, std:
                         support.pop_back();
                         iter_2++;
                     }
-                    pop_back(support);
+                    support.pop_back();
                 } else {
                     if (iter->get_oper() == NUMBER || iter->get_oper() == XXX) {
                         Stack obj(iter->get_value(), iter->get_priority(), iter->get_oper_enum());
@@ -211,32 +210,36 @@ void s21::Model::polish_note(std::list<Stack>& src, std::list<Stack>& main, std:
                     } else {
                         if (iter_2 != support.end()) {
                             if (iter->get_priority() != -1 && iter->get_priority() <= iter_2->get_priority()) {
-                                //create Stack
-                                push_back(main, (*support)->value, (*support)->oper, (*support)->priority);
-                                pop_back(support);
+                                Stack obj(iter_2->get_value(), iter_2->get_priority(), iter_2->get_oper_enum());
+                                main.push_back(obj);
+                                support.pop_back();
                             }
                         }
-                        iter_2;
-                        push_back(support, (src)->value, (src)->oper, (src)->priority);
-                        pop_back(&src);
+                        iter_2++;
+                        Stack obj(iter->get_value(), iter->get_priority(), iter->get_oper_enum());                        
+                        support.push_back(obj);
+                        src.pop_back();
                     }
                 }
             }
-            if (!src || err) break;
-            if (!(src)->next) err++;
+            if (src.empty() || err) break;
             iter++;
         }
         err = 0;
-        if (*support) {
+        if (!support.empty()) {
             while (1) {
-                push_back(main, (*support)->value, (*support)->oper, (*support)->priority);
-                pop_back(support);
-                if (err || !*support) break;
-                if (!(*support)->next) err++;
+                Stack obj(iter_2->get_value(), iter_2->get_priority(), iter_2->get_oper_enum());
+                main.push_back(obj);
+                support.pop_back();
+                if (err || support.empty()) break;
             }
         }
 }
 
+double get_value(std::list<Stack>& list_res) {
+    auto iter = list_res.begin();
+    return iter->get_value();
+}
 double s21::Model::start(std::string src, double x) {
     std::string new_str;
     double res = 0;
@@ -245,17 +248,13 @@ double s21::Model::start(std::string src, double x) {
     remove_spaces(src, new_str);
     if (Check_Available_Print(new_str, &i) == 0 && Check_Available_Print_Func(new_str, &i) == 0) {
         std::list<Stack> operand;
-        parse_lexeme(new_str, &operand, x);
-        Stack * reversed;
-        reverse_stack(operand, &reversed);
-        Stack * main;
-        Stack * support;
-        polish_note(reversed, &main, &support);
-        Stack *calculate;
-        Stack *result;
-        reverse_stack(main, &calculate);
-        calc_process(&calculate, &result);
-        res = result->value;
+        parse_lexeme(new_str, operand, x);
+        std::list<Stack> main;
+        std::list<Stack> support;
+        polish_note(operand, main, support);
+        std::list<Stack> result;
+        calc_process(support, result);
+        res = get_value(result);
     } else {
        printf("incorrect input");
        res = 1.11111111;

@@ -41,6 +41,18 @@ class Stack {
     Stack() : value_(0), priority_(0), oper_(XXX) {}
     Stack(double value, int priority, value_type oper) : value_(value), priority_(priority), oper_(oper) {}
     ~Stack() {}
+    double get_value() {
+      return value_;
+    }
+    double get_oper() {
+      return oper_;
+    }
+    double get_priority() {
+      return priority_;
+    }
+    value_type get_oper_enum() {
+      return oper_;
+    }
 };
 
     class Model {
@@ -50,12 +62,9 @@ class Stack {
 
             int Check_Available_Print_Func(std::string src, size_t* count_);
             int Check_Available_Print(std::string src, size_t* count_);
-            void push_back(std::list<Stack>& list, double data, value_type oper, size_t priority);
-            void reverse_stack(std::list<Stack>& src , std::list<Stack>& dst);
-            Stack pop_back(std::list<Stack>& head);
-            double pop_num(std::list<Stack>& main);
             double start(std::string str, double x);
-            void parse_lexeme(std::string src, std::list<Stack> operand, double x);
+            double get_value(std::list<Stack>& list_res);
+            void parse_lexeme(std::string src, std::list<Stack>& operand, double x);
             void polish_note(std::list<Stack>& src, std::list<Stack>& main, std::list<Stack>& support);
             void calc_process(std::list<Stack>& main, std::list<Stack>& result);
             void remove_spaces(std::string str, std::string new_str);
