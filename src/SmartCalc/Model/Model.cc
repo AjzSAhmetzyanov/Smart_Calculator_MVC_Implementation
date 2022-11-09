@@ -1,76 +1,88 @@
 #include "Model.h"
 using namespace s21;
 
-s21::Model::Model() {
-    //model_cal = new Model;
-}
-s21::Model::~Model() {
- //   delete model_cal;
-}
+s21::Model::Model() {;}
+s21::Model::~Model() {;}
 
-void s21::Model::parse_lexeme(char *src, Stack ** operand, double x) {
-    int len = strlen(src);
-    for (int i = 0; i < len; i++) {
+void s21::Model::parse_lexeme(std::string src, std::list<Stack>& operand, double x) {
+    for (size_t i = 0; i < src.length(); i++) {
         if ((src[i] >= '0' && src[i] <= '9') || src[i] == '.') {
-            char tmp[MAX] = {' '};
-            int j = 0;
+            std::string tmp;
+            size_t j = 0;
             while ((src[i] >= '0' && src[i] <= '9') || src[i] == '.') {
                 tmp[j++] = src[i++];
             }
             i--;
-            double tmp_f = atof(tmp);
-            push_back(operand, tmp_f, NUMBER, 0);
+            double tmp_f = stod(tmp);
+            Stack obj(tmp_f, 0, NUMBER);
+            operand.push_back(obj);
         } else if (src[i] == '+') {
-            push_back(operand, 0, PLUS, 1);
+            Stack obj(0, 1, PLUS);
+            operand.push_back(obj);
         } else if (src[i] == '-') {
-            push_back(operand, 0, SUB, 1);
+            Stack obj(0, 1, SUB);
+            operand.push_back(obj);
         } else if (src[i] == '*') {
-            push_back(operand, 0, MULT, 2);
+            Stack obj(0, 2, MULT);
+            operand.push_back(obj);
         } else if (src[i] == '/') {
-            push_back(operand, 0, DIV, 2);
+            Stack obj(0, 2, DIV);
+            operand.push_back(obj);
         } else if (src[i] == '^') {
-            push_back(operand, 0, POW, 3);
+            Stack obj(0, 3, POW);
         } else if (src[i] == 'm' && src[i+1] == 'o' && src[i+2] == 'd') {
             i += 2;
-            push_back(operand, 0, MOD, 2);
+            Stack obj(0, 2, MOD);
+            operand.push_back(obj);
         } else if (src[i] == '(') {
-            push_back(operand, 0, LEFT_BR, -1);
+            Stack obj(0, -1, LEFT_BR);
         } else if (src[i] == ')') {
-            push_back(operand, 0, RIGHT_BR, -1);
+            Stack obj(0, -1, RIGHT_BR);
+            operand.push_back(obj);
         } else if (src[i] == 'c' && src[i+1] == 'o' && src[i+2] == 's') {
             i += 2;
-            push_back(operand, 0, COS, 4);
+            Stack obj(0, 4, COS);
+            operand.push_back(obj);
         } else if (src[i] == 's' && src[i+1] == 'i' && src[i+2] == 'n') {
             i += 2;
-            push_back(operand, 0, SIN, 4);
+            Stack obj(0, 4, SIN);
+            operand.push_back(obj);
         } else if (src[i] == 't' && src[i+1] == 'a' && src[i+2] == 'n') {
             i += 2;
-            push_back(operand, 0, TAN, 4);
+            Stack obj(0, 4, TAN);
+            operand.push_back(obj);
         } else if (src[i] == 'a' && src[i+1] == 'c' && src[i+2] == 'o' && src[i+3] == 's') {
             i += 3;
-            push_back(operand, 0, ACOS, 4);
+            Stack obj(0, 4, ACOS);
+            operand.push_back(obj);
         } else if (src[i] == 'a' && src[i+1] == 's' && src[i+2] == 'i' && src[i+3] == 'n') {
             i += 3;
-            push_back(operand, 0, ASIN, 4);
+            Stack obj(0, 4, ASIN);
+            operand.push_back(obj);
         } else if (src[i] == 'a' && src[i+1] == 't' && src[i+2] == 'a' && src[i+3] == 'n') {
             i += 3;
-            push_back(operand, 0, ATAN, 4);
+            Stack obj(0, 4, ATAN);
+            operand.push_back(obj);
         } else if (src[i] == 's' && src[i+1] == 'q' && src[i+2] == 'r' && src[i+3] == 't') {
             i += 3;
-            push_back(operand, 0, SQRT, 4);
+            Stack obj(0, 4, SQRT);
+            operand.push_back(obj);
         } else if (src[i] == 'l' && src[i+1] == 'n') {
             i += 1;
-            push_back(operand, 0, LN, 4);
+            Stack obj(0, 4, LN);
+            operand.push_back(obj);
         } else if (src[i] == 'l' && src[i+1] == 'o' && src[i+2] == 'g') {
             i += 2;
-            push_back(operand, 0, LOG, 4);
+            Stack obj(0, 4, LOG);
+            operand.push_back(obj);
         } else if (src[i] == 'x') {
-            push_back(operand, x, XXX, 0);
+            Stack obj(x, 0, XXX);
+            operand.push_back(obj);
         }
     }
 }
 
-void s21::Model::polish_note(Stack * src, Stack ** main, Stack ** support) {
+void s21::Model::polish_note(Stack * src, std::list<Stack>& main, std::list<Stack>& support) {
     int err = 0;
         while (1) {
             if (src) {
@@ -111,9 +123,9 @@ void s21::Model::polish_note(Stack * src, Stack ** main, Stack ** support) {
         }
 }
 
-void s21::Model::calc_process(Stack ** main, Stack ** result) {
-    while ((*main) != NULL) {
-        if ((*main)->oper == NUMBER || (*main)->oper == XXX) {
+void s21::Model::calc_process(std::list<Stack>& main, std::list<Stack>& result) {
+    for (auto i = main.begin(); i != main.end(); i++) {
+        if ((*i) == NUMBER || (*main)->oper == XXX) {
             push_back(result, (*main)->value, (*main)->oper, (*main)->priority);
         } else if ((*main)->oper == PLUS) {
             double b = pop_num(result);
@@ -164,23 +176,22 @@ void s21::Model::calc_process(Stack ** main, Stack ** result) {
     }
 }
 
-double s21::Model::start(char *src, double x) {
-    char new_str[MAX] = {0};
+double s21::Model::start(std::string src, double x) {
+    std::string new_str;
     double res = 0;
-    int i = 0;
-    size_t len = strlen(src);
-    if (len < MAX) {
+    size_t i = 0;
+    if (src.length() < MAX) {
     remove_spaces(src, new_str);
     if (Check_Available_Print(new_str, &i) == 0 && Check_Available_Print_Func(new_str, &i) == 0) {
-        Stack * operand = NULL;
+        std::list<Stack> operand;
         parse_lexeme(new_str, &operand, x);
-        Stack * reversed = NULL;
+        Stack * reversed;
         reverse_stack(operand, &reversed);
-        Stack * main = NULL;
-        Stack * support = NULL;
+        Stack * main;
+        Stack * support;
         polish_note(reversed, &main, &support);
-        Stack *calculate = NULL;
-        Stack *result = NULL;
+        Stack *calculate;
+        Stack *result;
         reverse_stack(main, &calculate);
         calc_process(&calculate, &result);
         res = result->value;
@@ -195,58 +206,41 @@ double s21::Model::start(char *src, double x) {
 return res;
 }
 
-void s21::Model::push_back(Stack ** list, double data, value_type oper, int priority) {
-    Stack *tmp = new Stack;
-        tmp->value = data;
-        tmp->priority = priority;
-        tmp->oper = oper;
-        tmp->next = *list;
-        *list = tmp;
-}
-void s21::Model::remove_spaces(char * str, char * new_str) {
-    int len = strlen(str);
-    for (int i = 0; i < len; i++) {
+void s21::Model::remove_spaces(std::string str, std::string new_str) {
+    for (size_t i = 0; i < str.length(); i++) {
         if (str[i] == ' ')
             continue;
-        *new_str++ = str[i];
+        new_str.push_back(str[i]);
     }
 }
 
-void s21::Model::reverse_stack(Stack * src , Stack ** dst) {
-    while (src != NULL) {
-        push_back(dst, src->value, src->oper, src->priority);
-        src = src->next;
-    }
-}
-s21::Stack s21::Model::pop_back(Stack ** head) {
-    Stack * last = NULL;
-    Stack tmp = {0};
-    last = (*head);
-    tmp.value = last->value;
-    tmp.priority = last->priority;
-    tmp.oper = last->oper;
-    (*head) = (*head)->next; 
-    free(last);
-    return tmp;
-}
+//s21::Stack s21::Model::pop_back(Stack ** head) {
+//    Stack * last = NULL;
+//    Stack tmp;
+//    last = (*head);
+//    tmp.value = last->value;
+//    tmp.priority = last->priority;
+//    tmp.oper = last->oper;
+//    (*head) = (*head)->next;
+//    free(last);
+//    return tmp;
+//}
 
-double s21::Model::pop_num(Stack ** main) {
+double s21::Model::pop_num(std::list<Stack>& main) {
     double result = 0;
     if ((*main) != NULL) {
         Stack * tmp = (*main);
         result = (*main)->value;
-        (*main) = (*main)->next;
         free(tmp);
     }
     return result;
 }
 
-int s21::Model::Check_Available_Print(char *src, int *n) {
+int s21::Model::Check_Available_Print(std::string src, size_t* count_) {
     int res = FAILURE;
-    size_t len = strlen(src);
     int flag_brac_1 = 0, flag_brac_2 = 0, flag_float = 0, flag_operand = 0, flag_number = 0;
-    if (len < MAX) {
-        for (int i = *n; i < len; i++) {
+    if (src.length() < MAX) {
+        for (size_t i = *count_; i < src.length(); i++) {
             if (src[i] == '(' && src[i+1] != ')') flag_brac_1++;
             if (src[i] == ')') flag_brac_2++;
             if (src[i] == '+' || src[i] == '-' || src[i] == '*' || src[i] == '/' || src[i] == '.') {
@@ -285,17 +279,17 @@ int s21::Model::Check_Available_Print(char *src, int *n) {
     return res;
 }
 
-int s21::Model::Check_Available_Print_Func(char *src, int *i) {
-    size_t len = strlen(src), flag_sin = 0, flag_cos = 0, flag_tan = 0, flag_asin = 0, flag_acos = 0,
+int s21::Model::Check_Available_Print_Func(std::string src, size_t* count_) {
+    size_t flag_sin = 0, flag_cos = 0, flag_tan = 0, flag_asin = 0, flag_acos = 0,
             flag_atan = 0, flag_sqrt = 0, flag_ln = 0, flag_log = 0, flag_mod = 0, flag_brush = 0,
             res = FAILURE;
-    if (len <= MAX) {
-    for (int j = *i; src[j] != '\0'; j++) {
+    if (src.length() <= MAX) {
+    for (size_t j = *count_; src[j] != '\0'; j++) {
     if (src[j] == 's' || src[j] == 'c' || src[j] == 't' || src[j] == 'a' || src[j] == 'l' || src[j] == 'm') {
         if (src[j] == 's' && src[j+1] == 'i' && src[j+2] == 'n' && src[j-1] != '(') {
             flag_sin = 1;
             if (src[j+3] == '(') {
-                int h = j+3;
+                size_t h = j+3;
                     if (Check_Available_Print(src, &h) == 0) {
                         flag_sin = 0;
         } else {
@@ -308,7 +302,7 @@ int s21::Model::Check_Available_Print_Func(char *src, int *i) {
     } else if (src[j] == 'c' && src[j+1] == 'o' && src[j+2] == 's' && src[j-1] != '(') {
             if (src[j+3] == '(') {
                 flag_cos = 1;
-                int h = j+3;
+                size_t h = j+3;
                     if (Check_Available_Print(src, &h) == 0) {
                         flag_cos = 0;
         } else {
@@ -320,7 +314,7 @@ int s21::Model::Check_Available_Print_Func(char *src, int *i) {
            j = j + 3;
     } else if (src[j] == 't' && src[j+1] == 'a' && src[j+2] == 'n' && src[j-1] != '(') {
             if (src[j+3] == '(') {
-                int h = j+3;
+                size_t h = j+3;
                 flag_tan = 1;
                     if (Check_Available_Print(src, &h) == 0) {
                         flag_tan = 0;
@@ -333,7 +327,7 @@ int s21::Model::Check_Available_Print_Func(char *src, int *i) {
            j = j + 3;
     } else if (src[j] == 'a' && src[j+1] == 's' && src[j+2] == 'i' && src[j+3] == 'n' && src[j-1] != '(') {
     if (src[j+4] == '(') {
-                int h = j+4;
+                size_t h = j+4;
                 flag_asin = 1;
                     if (Check_Available_Print(src, &h) == 0) {
                         flag_asin = 0;
@@ -346,7 +340,7 @@ int s21::Model::Check_Available_Print_Func(char *src, int *i) {
             j = j + 4;
     } else if (src[j] == 'a' && src[j+1] == 'c' && src[j+2] == 'o' && src[j+3] == 's' && src[j-1] != '(') {
             if (src[j+4] == '(') {
-                int h = j+4;
+                size_t h = j+4;
                 flag_acos = 1;
                     if (Check_Available_Print(src, &h) == 0) {
                         flag_acos = 0;
@@ -359,7 +353,7 @@ int s21::Model::Check_Available_Print_Func(char *src, int *i) {
                     j = j + 4;
     } else if (src[j] == 'a' && src[j+1] == 't' && src[j+2] == 'a' && src[j+3] == 'n' && src[j-1] != '(') {
             if (src[j+4] == '(') {
-                int h = j+4;
+                size_t h = j+4;
                 flag_atan = 1;
                     if (Check_Available_Print(src, &h) == 0) {
                         flag_atan = 0;
@@ -372,7 +366,7 @@ int s21::Model::Check_Available_Print_Func(char *src, int *i) {
                     j = j + 4;
     } else if (src[j] == 's' && src[j+1] == 'q' && src[j+2] == 'r' && src[j+3] == 't' && src[j-1] != '(') {
             if (src[j+4] == '(') {
-                int h = j+4;
+                size_t h = j+4;
                 flag_sqrt = 1;
                     if (Check_Available_Print(src, &h) == 0) {
                         flag_sqrt = 0;
@@ -385,7 +379,7 @@ int s21::Model::Check_Available_Print_Func(char *src, int *i) {
                     j = j + 4;
     } else if (src[j] == 'l' && src[j+1] == 'n' && src[j-1] != '(') {
             if (src[j+2] == '(') {
-                int h = j+2;
+                size_t h = j+2;
                 flag_ln = 1;
                     if (Check_Available_Print(src, &h) == 0) {
                         flag_ln = 0;
@@ -398,7 +392,7 @@ int s21::Model::Check_Available_Print_Func(char *src, int *i) {
         j = j + 2;
     } else if (src[j] == 'l' && src[j+1] == 'o' && src[j+2] == 'g' && src[j-1] != '(') {
             if (src[j+3] == '(') {
-                int h = j+3;
+                size_t h = j+3;
                 flag_log = 1;
                     if (Check_Available_Print(src, &h) == 0) {
                         flag_log = 0;
@@ -411,7 +405,7 @@ int s21::Model::Check_Available_Print_Func(char *src, int *i) {
             j = j + 3;
         } else if (src[j] == 'm' && src[j+1] == 'o' && src[j+2] == 'd') {
         if ((src[j-1] <= '9' && src[j-1] >= '0') && (src[j+3] <= '9' && src[j+3] >= '0')) {
-                int h = j+3;
+                size_t h = j+3;
                 flag_mod = 1;
                     if (Check_Available_Print(src, &h) == 0) {
                         flag_mod = 0;

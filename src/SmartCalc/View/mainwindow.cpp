@@ -255,7 +255,6 @@ void MainWindow::on_pushButton_12_clicked() // =
                 if ((Controller_input->Check_string(str, 0) == 0) && str.length() <= 255) {
                     double respect = Controller_input->Calc_contr(str, x_value);
                     QString new_label;
-                    std::cout << respect << std::endl;
                     new_label = QString::number(respect, 'g', 15);
                     ui->result_console->setText(new_label);
                 } else {

@@ -7,7 +7,7 @@
 #define SUCCES 0
 #define FAILURE 1
 #define MAX 255
-
+#include <list>
 namespace s21 {
 typedef enum {
     XXX = 0,
@@ -32,32 +32,33 @@ typedef enum {
 } value_type;
 
 
-struct Stack {
-    double value;
-    int priority;
-    value_type oper;
-    struct Stack *next;
+class Stack {
+  private:
+    double value_;
+    int priority_;
+    value_type oper_;
+  public:
+    Stack() : value_(0), priority_(0), oper_(XXX) {}
+    Stack(double value, int priority, value_type oper) : value_(value), priority_(priority), oper_(oper) {}
+    ~Stack() {}
 };
 
     class Model {
-     //   private:
-           // Model* model_cal;
-           // Controller* cont_cal;
         public:
             Model();
             ~Model();
 
-            int Check_Available_Print_Func(char *src, int *i);
-            int Check_Available_Print(char *src, int *i);
-            void push_back(Stack ** list, double data, value_type oper, int priority);
-            void reverse_stack(Stack * src , Stack ** dst);
-            Stack pop_back(Stack ** head);
-            double pop_num(Stack ** main);
-            double start(char * str, double x);
-            void parse_lexeme(char * src, Stack ** operand, double x);
-            void polish_note(Stack * src, Stack ** main, Stack ** support);
-            void calc_process(Stack ** main, Stack ** result);
-            void remove_spaces(char * str, char * new_str);
+            int Check_Available_Print_Func(std::string src, size_t* count_);
+            int Check_Available_Print(std::string src, size_t* count_);
+            void push_back(std::list<Stack>& list, double data, value_type oper, size_t priority);
+            void reverse_stack(std::list<Stack>& src , std::list<Stack>& dst);
+            Stack pop_back(std::list<Stack>& head);
+            double pop_num(std::list<Stack>& main);
+            double start(std::string str, double x);
+            void parse_lexeme(std::string src, std::list<Stack> operand, double x);
+            void polish_note(std::list<Stack>& src, std::list<Stack>& main, std::list<Stack>& support);
+            void calc_process(std::list<Stack>& main, std::list<Stack>& result);
+            void remove_spaces(std::string str, std::string new_str);
 };
 }
 #endif // MODEL_H_f
