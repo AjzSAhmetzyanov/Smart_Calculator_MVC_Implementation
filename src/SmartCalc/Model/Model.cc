@@ -82,28 +82,141 @@ void s21::Model::parse_lexeme(std::string src, std::list<Stack>& operand, double
     }
 }
 
-void s21::Model::polish_note(Stack * src, std::list<Stack>& main, std::list<Stack>& support) {
+void s21::Model::calc_process(std::list<Stack>& main, std::list<Stack>& result) {
+    for (auto i : main) {
+        if (i.get_oper() == NUMBER || i.get_oper() == XXX) {
+            result.push_back(i);
+        } else if (i.get_oper() == PLUS) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = main.back().get_value() + b;
+            main.pop_back();
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == SUB) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = main.back().get_value() - b;
+            main.pop_back();
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == DIV) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = main.back().get_value() / b;
+            main.pop_back();
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == MULT) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = main.back().get_value() * b;
+            main.pop_back();
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper()== POW) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = pow(main.back().get_value(), b);
+            main.pop_back();
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == MOD) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = fmod(main.back().get_value(), b);
+            main.pop_back();
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == COS) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = cos(b);
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == SIN) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = sin(b);
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == TAN) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = tan(b);
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == ACOS) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = acos(b);
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == ASIN) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = asin(b);
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == ATAN) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = atan(b);
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == SQRT) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = sqrt(b);
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == LN) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = log(b);
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        } else if (i.get_oper() == LOG) {
+            double b = main.back().get_value();
+            main.pop_back();
+            double res = log(b);
+            Stack obj(res, 0, NUMBER);
+            result.push_back(obj);
+        }
+    }
+    }
+}
+
+
+void s21::Model::polish_note(std::list<Stack>& src, std::list<Stack>& main, std::list<Stack>& support) {
     int err = 0;
-        while (1) {
-            if (src) {
-                if ((src)-> oper == RIGHT_BR) {
-                    pop_back(&src);
-                    while ((*support)->oper != LEFT_BR) {
-                        push_back(main, (*support)->value, (*support)->oper, (*support)->priority);
-                        pop_back(support);
+    auto iter = src.begin();
+      auto iter_2 = support.begin();
+        while (iter != src.end()) {
+            if (!(src.empty())) {
+                if (iter->get_oper() == RIGHT_BR) {
+                    src.pop_back();
+                    while (iter_2->get_oper() != LEFT_BR) {
+                        Stack obj(iter_2->get_value(), iter_2->get_priority(), iter_2->get_oper_enum());
+                        main.push_back(obj);
+                        support.pop_back();
+                        iter_2++;
                     }
                     pop_back(support);
                 } else {
-                    if ((src)->oper == NUMBER || (src)->oper == XXX) {
-                        push_back(main, (src)->value, (src)->oper, (src)->priority);
-                        pop_back(&src);
+                    if (iter->get_oper() == NUMBER || iter->get_oper() == XXX) {
+                        Stack obj(iter->get_value(), iter->get_priority(), iter->get_oper_enum());
+                        main.push_back(obj);
+                        src.pop_back();
                     } else {
-                        if (*support) {
-                            if ((src)->priority != -1 && (src)->priority <= (*support)->priority) {
+                        if (iter_2 != support.end()) {
+                            if (iter->get_priority() != -1 && iter->get_priority() <= iter_2->get_priority()) {
+                                //create Stack
                                 push_back(main, (*support)->value, (*support)->oper, (*support)->priority);
                                 pop_back(support);
                             }
                         }
+                        iter_2;
                         push_back(support, (src)->value, (src)->oper, (src)->priority);
                         pop_back(&src);
                     }
@@ -111,6 +224,7 @@ void s21::Model::polish_note(Stack * src, std::list<Stack>& main, std::list<Stac
             }
             if (!src || err) break;
             if (!(src)->next) err++;
+            iter++;
         }
         err = 0;
         if (*support) {
@@ -121,59 +235,6 @@ void s21::Model::polish_note(Stack * src, std::list<Stack>& main, std::list<Stac
                 if (!(*support)->next) err++;
             }
         }
-}
-
-void s21::Model::calc_process(std::list<Stack>& main, std::list<Stack>& result) {
-    for (auto i = main.begin(); i != main.end(); i++) {
-        if ((*i) == NUMBER || (*main)->oper == XXX) {
-            push_back(result, (*main)->value, (*main)->oper, (*main)->priority);
-        } else if ((*main)->oper == PLUS) {
-            double b = pop_num(result);
-            double res = pop_num(result) + b;
-            push_back(result, res, XXX, 0);
-        } else if ((*main)->oper == SUB) {
-            double b = pop_num(result);
-            double res = pop_num(result) - b;
-            push_back(result, res, XXX, 0);
-        } else if ((*main)->oper == DIV) {
-            double b = pop_num(result);
-            double res = pop_num(result) / b;
-            push_back(result, res, XXX, 0);
-        } else if ((*main)->oper == MULT) {
-            double b = pop_num(result);
-            double res = pop_num(result) * b;
-            push_back(result, res, XXX, 0);
-        } else if ((*main)->oper == POW) {
-            double b = pop_num(result);
-            double res = pow(pop_num(result), b);
-            push_back(result, res, XXX, 0);
-        } else if ((*main)->oper == MOD) {
-            double b = pop_num(result);
-            double res = fmod(pop_num(result), b);
-            push_back(result, res, XXX, 0);
-        } else if ((*main)->oper == COS) {
-            push_back(result, cos(pop_num(result)), XXX, 0);
-        } else if ((*main)->oper == SIN) {
-            push_back(result, sin(pop_num(result)), XXX, 0);
-        } else if ((*main)->oper == TAN) {
-            push_back(result, tan(pop_num(result)), XXX, 0);
-        } else if ((*main)->oper == ACOS) {
-            push_back(result, acos(pop_num(result)), XXX, 0);
-        } else if ((*main)->oper == ASIN) {
-            push_back(result, asin(pop_num(result)), XXX, 0);
-        } else if ((*main)->oper == ATAN) {
-            push_back(result, atan(pop_num(result)), XXX, 0);
-        } else if ((*main)->oper == SQRT) {
-            push_back(result, sqrt(pop_num(result)), XXX, 0);
-        } else if ((*main)->oper == LN) {
-            push_back(result, log(pop_num(result)), XXX, 0);
-        } else if ((*main)->oper == LOG) {
-            push_back(result, log10(pop_num(result)), XXX, 0);
-        }
-        Stack * tmp = (*main);
-        (*main) = (*main)->next;
-        free(tmp);
-    }
 }
 
 double s21::Model::start(std::string src, double x) {
@@ -212,28 +273,6 @@ void s21::Model::remove_spaces(std::string str, std::string new_str) {
             continue;
         new_str.push_back(str[i]);
     }
-}
-
-//s21::Stack s21::Model::pop_back(Stack ** head) {
-//    Stack * last = NULL;
-//    Stack tmp;
-//    last = (*head);
-//    tmp.value = last->value;
-//    tmp.priority = last->priority;
-//    tmp.oper = last->oper;
-//    (*head) = (*head)->next;
-//    free(last);
-//    return tmp;
-//}
-
-double s21::Model::pop_num(std::list<Stack>& main) {
-    double result = 0;
-    if ((*main) != NULL) {
-        Stack * tmp = (*main);
-        result = (*main)->value;
-        free(tmp);
-    }
-    return result;
 }
 
 int s21::Model::Check_Available_Print(std::string src, size_t* count_) {
