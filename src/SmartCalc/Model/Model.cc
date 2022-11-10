@@ -187,9 +187,31 @@ void s21::Model::calc_process(std::list<Stack>& main, std::list<Stack>& result) 
 }
 
 
-void s21::Model::polish_note(std::list<Stack>& operand, std::list<Stack>& main, std::list<Stack>& support) {
+void polish_note(std::list<Stack>& operand, std::list<Stack>& main, std::list<Stack>& support) {
     if (!operand.empty()) {
     for (auto iter_operand : operand) {
+            if (iter_operand.get_oper() == LEFT_BR) {
+           if (iter_operand.get_oper() == NUMBER) {
+                main.push_back(iter_operand);
+            } else  if (iter_operand.get_oper() == RIGHT_BR) {
+                    while(!support.empty()) {
+                    main.push_back(support.back());
+                    support.pop_back();
+                }
+            } else {
+                if (support.empty()) {
+                    support.push_back(iter_operand);
+                } else {
+                if (iter_operand.get_priority() <= support.back().get_priority()) {
+                        main.push_back(support.back());
+                        support.pop_back();
+                        support.push_back(iter_operand);
+                    } else {
+                        support.push_back(iter_operand);
+                    } 
+                }
+            }
+            } else {
             if (iter_operand.get_oper() == NUMBER) {
                 main.push_back(iter_operand);
             } else {
@@ -200,16 +222,20 @@ void s21::Model::polish_note(std::list<Stack>& operand, std::list<Stack>& main, 
                         main.push_back(support.back());
                         support.pop_back();
                         support.push_back(iter_operand);
-                    }
+                    } else {
+                        support.push_back(iter_operand);
+                    } 
                 }
             }
         }
+    }
         while(!support.empty()) {
             main.push_back(support.back());
             support.pop_back();
         }
-    }
 }
+}
+
 
 double s21::Model::start(std::string str, double x) {
     std::string new_str;
