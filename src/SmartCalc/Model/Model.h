@@ -63,11 +63,10 @@ class Stack {
             int Check_Available_Print_Func(std::string src, size_t* count_);
             int Check_Available_Print(std::string src, size_t* count_);
             double start(std::string str, double x);
-            double get_value(std::list<Stack>& list_res);
             void parse_lexeme(std::string src, std::list<Stack>& operand, double x);
-            void polish_note(std::list<Stack>& src, std::list<Stack>& main, std::list<Stack>& support);
+            void polish_note(std::list<Stack>& operand, std::list<Stack>& main, std::list<Stack>& support);
             void calc_process(std::list<Stack>& main, std::list<Stack>& result);
-            void remove_spaces(std::string str, std::string new_str);
+
 };
 }
 #endif // MODEL_H_f

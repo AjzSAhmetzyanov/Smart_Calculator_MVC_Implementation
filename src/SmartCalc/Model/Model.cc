@@ -35,9 +35,9 @@ void s21::Model::parse_lexeme(std::string src, std::list<Stack>& operand, double
             Stack obj(0, 2, MOD);
             operand.push_back(obj);
         } else if (src[i] == '(') {
-            Stack obj(0, -1, LEFT_BR);
+            Stack obj(0, 5, LEFT_BR);
         } else if (src[i] == ')') {
-            Stack obj(0, -1, RIGHT_BR);
+            Stack obj(0, 5, RIGHT_BR);
             operand.push_back(obj);
         } else if (src[i] == 'c' && src[i+1] == 'o' && src[i+2] == 's') {
             i += 2;
@@ -87,98 +87,98 @@ void s21::Model::calc_process(std::list<Stack>& main, std::list<Stack>& result) 
         if (i.get_oper() == NUMBER || i.get_oper() == XXX) {
             result.push_back(i);
         } else if (i.get_oper() == PLUS) {
-            double b = main.back().get_value();
-            main.pop_back();
-            double res = main.back().get_value() + b;
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
+            double res = result.back().get_value() + b;
+            result.pop_back();
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == SUB) {
-            double b = main.back().get_value();
-            main.pop_back();
-            double res = main.back().get_value() - b;
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
+            double res = result.back().get_value() - b;
+            result.pop_back();
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == DIV) {
-            double b = main.back().get_value();
-            main.pop_back();
-            double res = main.back().get_value() / b;
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
+            double res = result.back().get_value() / b;
+            result.pop_back();
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == MULT) {
-            double b = main.back().get_value();
-            main.pop_back();
-            double res = main.back().get_value() * b;
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
+            double res = result.back().get_value() * b;
+            result.pop_back();
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper()== POW) {
-            double b = main.back().get_value();
-            main.pop_back();
-            double res = pow(main.back().get_value(), b);
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
+            double res = pow((result.back().get_value()), b);
+            result.pop_back();
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == MOD) {
-            double b = main.back().get_value();
-            main.pop_back();
-            double res = fmod(main.back().get_value(), b);
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
+            double res = fmod(result.back().get_value(), b);
+            result.pop_back();
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == COS) {
-            double b = main.back().get_value();
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
             double res = cos(b);
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == SIN) {
-            double b = main.back().get_value();
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
             double res = sin(b);
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == TAN) {
-            double b = main.back().get_value();
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
             double res = tan(b);
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == ACOS) {
-            double b = main.back().get_value();
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
             double res = acos(b);
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == ASIN) {
-            double b = main.back().get_value();
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
             double res = asin(b);
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == ATAN) {
-            double b = main.back().get_value();
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
             double res = atan(b);
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == SQRT) {
-            double b = main.back().get_value();
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
             double res = sqrt(b);
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == LN) {
-            double b = main.back().get_value();
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
             double res = log(b);
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
         } else if (i.get_oper() == LOG) {
-            double b = main.back().get_value();
-            main.pop_back();
+            double b = result.back().get_value();
+            result.pop_back();
             double res = log(b);
             Stack obj(res, 0, NUMBER);
             result.push_back(obj);
@@ -187,74 +187,45 @@ void s21::Model::calc_process(std::list<Stack>& main, std::list<Stack>& result) 
 }
 
 
-void s21::Model::polish_note(std::list<Stack>& src, std::list<Stack>& main, std::list<Stack>& support) {
-    int err = 0;
-    auto iter = src.begin();
-      auto iter_2 = support.begin();
-        while (iter != src.end()) {
-            if (!(src.empty())) {
-                if (iter->get_oper() == RIGHT_BR) {
-                    src.pop_back();
-                    while (iter_2->get_oper() != LEFT_BR) {
-                        Stack obj(iter_2->get_value(), iter_2->get_priority(), iter_2->get_oper_enum());
-                        main.push_back(obj);
-                        support.pop_back();
-                        iter_2++;
-                    }
-                    support.pop_back();
+void s21::Model::polish_note(std::list<Stack>& operand, std::list<Stack>& main, std::list<Stack>& support) {
+    if (!operand.empty()) {
+    for (auto iter_operand : operand) {
+            if (iter_operand.get_oper() == NUMBER) {
+                main.push_back(iter_operand);
+            } else {
+                if (support.empty()) {
+                    support.push_back(iter_operand);
                 } else {
-                    if (iter->get_oper() == NUMBER || iter->get_oper() == XXX) {
-                        Stack obj(iter->get_value(), iter->get_priority(), iter->get_oper_enum());
-                        main.push_back(obj);
-                        src.pop_back();
-                    } else {
-                        if (iter_2 != support.end()) {
-                            if (iter->get_priority() != -1 && iter->get_priority() <= iter_2->get_priority()) {
-                                Stack obj(iter_2->get_value(), iter_2->get_priority(), iter_2->get_oper_enum());
-                                main.push_back(obj);
-                                support.pop_back();
-                            }
-                        }
-                        iter_2++;
-                        Stack obj(iter->get_value(), iter->get_priority(), iter->get_oper_enum());                        
-                        support.push_back(obj);
-                        src.pop_back();
+                if (iter_operand.get_priority() <= support.back().get_priority()) {
+                        main.push_back(support.back());
+                        support.pop_back();
+                        support.push_back(iter_operand);
                     }
                 }
             }
-            if (src.empty() || err) break;
-            iter++;
         }
-        err = 0;
-        if (!support.empty()) {
-            while (1) {
-                Stack obj(iter_2->get_value(), iter_2->get_priority(), iter_2->get_oper_enum());
-                main.push_back(obj);
-                support.pop_back();
-                if (err || support.empty()) break;
-            }
+        while(!support.empty()) {
+            main.push_back(support.back());
+            support.pop_back();
         }
+    }
 }
 
-double get_value(std::list<Stack>& list_res) {
-    auto iter = list_res.begin();
-    return iter->get_value();
-}
-double s21::Model::start(std::string src, double x) {
+double s21::Model::start(std::string str, double x) {
     std::string new_str;
     double res = 0;
     size_t i = 0;
-    if (src.length() < MAX) {
-    remove_spaces(src, new_str);
-    if (Check_Available_Print(new_str, &i) == 0 && Check_Available_Print_Func(new_str, &i) == 0) {
+    if (str.length() < MAX) {
+    if (Check_Available_Print(str, &i) == 0 && Check_Available_Print_Func(str, &i) == 0) {
         std::list<Stack> operand;
-        parse_lexeme(new_str, operand, x);
+        parse_lexeme(str, operand, x);
         std::list<Stack> main;
         std::list<Stack> support;
         polish_note(operand, main, support);
         std::list<Stack> result;
-        calc_process(support, result);
-        res = get_value(result);
+        calc_process(main, result);
+        res = result.back().get_value();
+        std::cout << "hey" << std::endl;
     } else {
        printf("incorrect input");
        res = 1.11111111;
@@ -264,14 +235,6 @@ double s21::Model::start(std::string src, double x) {
         res = 2.22222222;
     }
 return res;
-}
-
-void s21::Model::remove_spaces(std::string str, std::string new_str) {
-    for (size_t i = 0; i < str.length(); i++) {
-        if (str[i] == ' ')
-            continue;
-        new_str.push_back(str[i]);
-    }
 }
 
 int s21::Model::Check_Available_Print(std::string src, size_t* count_) {
