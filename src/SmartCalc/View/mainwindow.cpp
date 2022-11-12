@@ -33,7 +33,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_25, SIGNAL(clicked()), this, SLOT(digits_numbers()));
     connect(ui->pushButton_26, SIGNAL(clicked()), this, SLOT(digits_numbers()));
     connect(ui->pushButton_27, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-    connect(ui->pushButton_28, SIGNAL(clicked()), this, SLOT(digits_numbers()));
     connect(ui->pushButton_29, SIGNAL(clicked()), this, SLOT(digits_numbers()));
     connect(ui->pushButton_30, SIGNAL(clicked()), this, SLOT(digits_numbers()));
     connect(ui->pushButton_31, SIGNAL(clicked()), this, SLOT(digits_numbers()));
@@ -134,8 +133,7 @@ void MainWindow::on_pushButton_10_clicked() //mod
 
 void MainWindow::on_pushButton_11_clicked() //X
 {
-    //if(!(ui->result_console->text().contains("x")))
-           ui->result_console->setText(ui->result_console->text() + "x");
+    ui->result_console->setText(ui->result_console->text() + "x");
 }
 
 
@@ -245,38 +243,39 @@ void MainWindow::on_pushButton_12_clicked() // =
 {
     QPushButton *Button = (QPushButton*)sender();
     if(ui->result_console->text().contains("x")) {
-            if(!((ui->result_console->text()).toDouble())) {
-                ui->result_console->setText("Incorrect input");
-            } else {
-                double x_value = ((ui->result_console->text()).toDouble());
+                QString x_value = ui->result_console_x->text().toLatin1();
+                std::string str_x = x_value.toStdString();
                 QString barr = ui->result_console->text().toLatin1();
                 std::string str = barr.toStdString();
-                //str.barr(str, ui->result_console->text().length() + 1);
-                if ((Controller_input->Check_string(str, 0) == 0) && str.length() <= 255) {
-                    double respect = Controller_input->Calc_contr(str, x_value);
+                if (*(str.begin().base()) == '-') {
+                    std::string str_1 = "0-";
+                     str.replace(str.begin(), str.begin() + 1 ,str_1);
+                }
+                str.replace(str.find('x'), str.find('x') + 1, str_x);
+                ui->result_console_x->clear();
+                if (str.length() <= 255) {
+                    double respect = Controller_input->Calc_contr(str, 0);
                     QString new_label;
                     new_label = QString::number(respect, 'g', 15);
                     ui->result_console->setText(new_label);
                 } else {
                     ui->result_console->setText("Incorrect input");
                 }
-
-            }
         } else {
             QString barr = ui->result_console->text().toLatin1();
             std::string str = barr.toStdString();
+            if (*(str.begin().base()) == '-') {
+                std::string str_1 = "0-";
+                 str.replace(str.begin(), str.begin() + 1 ,str_1);
+            }
+            if ((Controller_input->Check_string(str) == 1) && (Controller_input->Check_string_func(str) == 1)) {
             double respect = Controller_input->Calc_contr(str, 0);
-            if (respect == 1.11111111) {
-                ui->result_console->setText("Incorrect input");
-                ui->result_console->setReadOnly(true);
-            } else if (respect == 2.22222222) {
-                 ui->result_console->setText("Unvailable size of input");
-                 ui->result_console->setReadOnly(true);
-            } else {
             QString new_label;
             new_label = QString::number(respect, 'g', 15);
             ui->result_console->setText(new_label);
-    }
+            } else {
+                ui->result_console->setText("Incorrect input");
+            }
         Button->setChecked(false);
     }
 }
@@ -307,7 +306,6 @@ void MainWindow::on_pushButton_34_clicked()
 
 void MainWindow::on_pushButton_35_clicked()
 {
-    char tmp[1024] = "";
         ui->widget->clearGraphs();
         if (!(ui->xmin->text()).toDouble() || !(ui->ymin->text()).toDouble() ||
                 !(ui->xmax->text()).toDouble() || !(ui->ymax->text()).toDouble())
@@ -319,22 +317,11 @@ void MainWindow::on_pushButton_35_clicked()
         } else {
             QString barr = ui->result_console->text().toLatin1();
             std::string str = barr.toStdString();
-            double respect = Controller_input->Calc_contr(str, 0);
-            if (respect == 1.11111111) {
-                ui->result_console->setText("Incorrect input");
-                ui->result_console->setReadOnly(true);
-            } else if (respect == 2.22222222) {
-                 ui->result_console->setText("Unvailable size of input");
-                 ui->result_console->setReadOnly(true);
-            } else {
             h = 0.1;
             xBegin = (ui->xmin->text()).toDouble();
             yBegin = (ui->ymin->text()).toDouble();
             xEnd = (ui->xmax->text()).toDouble() + h;
             yEnd = (ui->ymin->text()).toDouble();
-
-                QString barr = ui->result_console->text().toLatin1();
-                std::string str = barr.toStdString();
                 ui->widget->xAxis->setRange(xBegin, xEnd);
                 ui->widget->yAxis->setRange(yBegin, yEnd);
                 X = xBegin;
@@ -342,15 +329,13 @@ void MainWindow::on_pushButton_35_clicked()
                 for (X = xBegin; X <= xEnd; X += h)
                 {
                     x.push_back(X);
-                    y.push_back(Controller_input->Calc_contr(tmp, X));
+                    y.push_back(Controller_input->Calc_contr(str, X));
                 }
                 ui->widget->addGraph();
                 ui->widget->graph()->addData(x, y);
                 ui->widget->replot();
                 x.clear();
                 y.clear();
-    }
   }
 }
-
 
