@@ -1,12 +1,49 @@
-#include "Model.h"
-
+#include <iostream>
 #include <algorithm>
-using namespace s21;
+#include <cmath>
+#define SUCCES 0
+#define FAILURE 1
+#define MAX 255
+#include <list>
+typedef enum {
+  XXX = 0,
+  NUMBER = 1,
+  PLUS = 2,
+  SUB = 3,
+  MULT = 4,
+  DIV = 5,
+  MOD = 6,
+  POW = 7,
+  SIN = 8,
+  COS = 9,
+  TAN = 10,
+  ACOS = 11,
+  ASIN = 12,
+  ATAN = 13,
+  SQRT = 14,
+  LN = 15,
+  LOG = 16,
+  LEFT_BR = 17,
+  RIGHT_BR = 18
+} value_type;
 
-s21::Model::Model() { ; }
-s21::Model::~Model() { ; }
+class Stack {
+ private:
+  double value_;
+  int priority_;
+  value_type oper_;
+  public:
+  Stack() : value_(0), priority_(0), oper_(XXX) {}
+  Stack(double value, int priority, value_type oper)
+      : value_(value), priority_(priority), oper_(oper) {}
+  ~Stack() {}
+  double get_value() { return value_; }
+  double get_oper() { return oper_; }
+  double get_priority() { return priority_; }
+  value_type get_oper_enum() { return oper_; }
+};
 
-void s21::Model::parse_lexeme(std::string src, std::list<Stack>& operand,
+void   parse_lexeme(std::string src, std::list<Stack>& operand,
                               double x) {
   for (size_t i = 0; i < src.length(); i++) {
     if ((src[i] >= '0' && src[i] <= '9') || src[i] == '.') {
@@ -91,7 +128,7 @@ void s21::Model::parse_lexeme(std::string src, std::list<Stack>& operand,
   }
 }
 
-void s21::Model::plus_(std::list<Stack>& result) {
+void   plus_(std::list<Stack>& result) {
   double b = result.back().get_value();
   result.pop_back();
   double res = result.back().get_value() + b;
@@ -100,7 +137,7 @@ void s21::Model::plus_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::sub_(std::list<Stack>& result) {
+void   sub_(std::list<Stack>& result) {
   double b = result.back().get_value();
   result.pop_back();
   double res = result.back().get_value() - b;
@@ -109,7 +146,7 @@ void s21::Model::sub_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::div_(std::list<Stack>& result) {
+void   div_(std::list<Stack>& result) {
   double b = result.back().get_value();
   result.pop_back();
   double res = result.back().get_value() / b;
@@ -118,7 +155,7 @@ void s21::Model::div_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::mult_(std::list<Stack>& result) {
+void   mult_(std::list<Stack>& result) {
   double b = result.back().get_value();
   result.pop_back();
   double res = result.back().get_value() * b;
@@ -127,7 +164,7 @@ void s21::Model::mult_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::pow_(std::list<Stack>& result) {
+void   pow_(std::list<Stack>& result) {
   double b = result.back().get_value();
   result.pop_back();
   double res = pow((result.back().get_value()), b);
@@ -136,7 +173,7 @@ void s21::Model::pow_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::mod_(std::list<Stack>& result) {
+void   mod_(std::list<Stack>& result) {
   double b = result.back().get_value();
   result.pop_back();
   double res = fmod(result.back().get_value(), b);
@@ -145,70 +182,70 @@ void s21::Model::mod_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::cos_(std::list<Stack>& main, std::list<Stack>& result) {
-  double res = std::cos(result.back().get_value());
+void   cos_(std::list<Stack>& main, std::list<Stack>& result) {
+ double res = std::cos(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::sin_(std::list<Stack>& main, std::list<Stack>& result) {
+void   sin_(std::list<Stack>& main, std::list<Stack>& result) {
   double res = std::sin(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::tan_(std::list<Stack>& main, std::list<Stack>& result) {
-  double res = std::tan(result.back().get_value());
+void   tan_(std::list<Stack>& main, std::list<Stack>& result) {
+double res = std::tan(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::acos_(std::list<Stack>& main, std::list<Stack>& result) {
-  double res = std::acos(result.back().get_value());
+void   acos_(std::list<Stack>& main, std::list<Stack>& result) {
+double res = std::acos(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::asin_(std::list<Stack>& main, std::list<Stack>& result) {
-  double res = std::asin(result.back().get_value());
+void   asin_(std::list<Stack>& main, std::list<Stack>& result) {
+double res = std::asin(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::atan_(std::list<Stack>& main, std::list<Stack>& result) {
-  double res = std::atan(result.back().get_value());
+void   atan_(std::list<Stack>& main, std::list<Stack>& result) {
+double res = std::atan(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::sqrt_(std::list<Stack>& main, std::list<Stack>& result) {
-  double res = std::sqrt(result.back().get_value());
+void   sqrt_(std::list<Stack>& main, std::list<Stack>& result) {
+double res = std::sqrt(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::ln_(std::list<Stack>& main, std::list<Stack>& result) {
-  double res = std::log(result.back().get_value());
+void   ln_(std::list<Stack>& main, std::list<Stack>& result) {
+double res = std::log(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::log_(std::list<Stack>& main, std::list<Stack>& result) {
-  double res = std::log(result.back().get_value());
+void log_(std::list<Stack>& main, std::list<Stack>& result) {
+double res = std::log(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::calc_process(std::list<Stack>& main,
+void calc_process(std::list<Stack>& main,
                               std::list<Stack>& result) {
   for (auto i : main) {
     if ((i.get_oper() == NUMBER || i.get_oper() == XXX)) {
@@ -247,7 +284,7 @@ void s21::Model::calc_process(std::list<Stack>& main,
   }
 }
 
-void s21::Model::polish_note(std::list<Stack>& operand, std::list<Stack>& main,
+void polish_note(std::list<Stack>& operand, std::list<Stack>& main,
                              std::list<Stack>& support) {
   if (!operand.empty()) {
     for (auto iter_operand : operand) {
@@ -264,20 +301,20 @@ void s21::Model::polish_note(std::list<Stack>& operand, std::list<Stack>& main,
             }
             support.pop_back();
           } else {
-            if (iter_operand.get_priority() <= support.back().get_priority() &&
-                iter_operand.get_oper() != LEFT_BR) {
-              main.push_back(support.back());
-              if (!support.empty()) {
-                support.pop_back();
-              }
+          if (iter_operand.get_priority() <= support.back().get_priority() &&
+              iter_operand.get_oper() != LEFT_BR) {
+            main.push_back(support.back());
+            if (!support.empty()) {
+              support.pop_back();
+            }
+            support.push_back(iter_operand);
+          } else {
+            if ((iter_operand.get_oper() != RIGHT_BR)) {
               support.push_back(iter_operand);
-            } else {
-              if ((iter_operand.get_oper() != RIGHT_BR)) {
-                support.push_back(iter_operand);
-              }
             }
           }
         }
+      }
       }
     }
     while (!support.empty()) {
@@ -287,7 +324,7 @@ void s21::Model::polish_note(std::list<Stack>& operand, std::list<Stack>& main,
   }
 }
 
-double s21::Model::start(std::string str, double x) {
+double start(std::string str, double x) {
   std::string new_str;
   double res = 0;
   std::list<Stack> operand;
@@ -301,7 +338,7 @@ double s21::Model::start(std::string str, double x) {
   return res;
 }
 
-bool s21::Model::Check_Available_Print(std::string src) {
+bool Check_Available_Print(std::string src) {
   bool res = false;
   if (std::count(src.begin(), src.end(), '(') ==
       std::count(src.begin(), src.end(), ')'))
@@ -335,7 +372,7 @@ bool s21::Model::Check_Available_Print(std::string src) {
   return res;
 }
 
-bool s21::Model::Check_Available_Print_Func(std::string src) {
+bool Check_Available_Print_Func(std::string src) {
   bool res = false;
   for (size_t i = 0; i < src.size(); i++) {
     if (src[i] == 's' || src[i] == 'c' || src[i] == 't' || src[i] == 'a' ||
@@ -391,4 +428,12 @@ bool s21::Model::Check_Available_Print_Func(std::string src) {
     }
   }
   return res;
+}
+
+
+int main() {
+    std::string str = "sin(3)+2+cos(3-2*2)/2223w435w52";
+    double res = start(str, 0);
+    std::cout << res << std::endl;
+    return 0;
 }

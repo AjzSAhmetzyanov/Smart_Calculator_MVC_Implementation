@@ -25,6 +25,7 @@ private slots:
 
     void operations();
     void digits_numbers();
+    void check_unary_minus(std::string str&);
 
     void on_pushButton_clicked();
 
@@ -83,8 +84,6 @@ private slots:
     void on_pushButton_29_clicked();
 
     void on_pushButton_12_clicked();
-
-    void on_pushButton_28_clicked();
 
     void on_pushButton_31_clicked();
 
