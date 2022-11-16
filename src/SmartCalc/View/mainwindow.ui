@@ -918,37 +918,6 @@ QPushButton:pressed {
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_28">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>90</y>
-      <width>131</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-  background-color: rgb(255, 151, 57);
-  color: white; 
-  border: 1px solid gray;
-}
-
-QPushButton:pressed {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #FF7832, stop: 1 #FF9739);
-}     </string>
-    </property>
-    <property name="text">
-     <string>EXIT</string>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>30</width>
-      <height>30</height>
-     </size>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_31">
     <property name="geometry">
      <rect>
@@ -1409,6 +1378,29 @@ QPushButton:pressed {
      <number>10</number>
     </property>
    </widget>
+   <widget class="QLineEdit" name="result_console_x">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>90</y>
+      <width>131</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+ qproperty-alignment: 'AlignVCenter | AlignRight';
+ border-bottom: 1px solid gray;
+}
+background-color : white; </string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="cursorMoveStyle">
+     <enum>Qt::LogicalMoveStyle</enum>
+    </property>
+   </widget>
    <zorder>pushButton</zorder>
    <zorder>pushButton_2</zorder>
    <zorder>pushButton_3</zorder>
@@ -1436,7 +1428,6 @@ QPushButton:pressed {
    <zorder>pushButton_29</zorder>
    <zorder>pushButton_30</zorder>
    <zorder>pushButton_12</zorder>
-   <zorder>pushButton_28</zorder>
    <zorder>pushButton_31</zorder>
    <zorder>pushButton_32</zorder>
    <zorder>pushButton_17</zorder>
@@ -1454,6 +1445,7 @@ QPushButton:pressed {
    <zorder>widget</zorder>
    <zorder>xmax</zorder>
    <zorder>xmin</zorder>
+   <zorder>result_console_x</zorder>
   </widget>
  </widget>
  <customwidgets>

@@ -145,63 +145,63 @@ void s21::Model::mod_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::cos_(std::list<Stack>& main, std::list<Stack>& result) {
+void s21::Model::cos_(std::list<Stack>& result) {
   double res = std::cos(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::sin_(std::list<Stack>& main, std::list<Stack>& result) {
+void s21::Model::sin_(std::list<Stack>& result) {
   double res = std::sin(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::tan_(std::list<Stack>& main, std::list<Stack>& result) {
+void s21::Model::tan_(std::list<Stack>& result) {
   double res = std::tan(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::acos_(std::list<Stack>& main, std::list<Stack>& result) {
+void s21::Model::acos_(std::list<Stack>& result) {
   double res = std::acos(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::asin_(std::list<Stack>& main, std::list<Stack>& result) {
+void s21::Model::asin_(std::list<Stack>& result) {
   double res = std::asin(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::atan_(std::list<Stack>& main, std::list<Stack>& result) {
+void s21::Model::atan_(std::list<Stack>& result) {
   double res = std::atan(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::sqrt_(std::list<Stack>& main, std::list<Stack>& result) {
+void s21::Model::sqrt_(std::list<Stack>& result) {
   double res = std::sqrt(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::ln_(std::list<Stack>& main, std::list<Stack>& result) {
+void s21::Model::ln_(std::list<Stack>& result) {
   double res = std::log(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::log_(std::list<Stack>& main, std::list<Stack>& result) {
+void s21::Model::log_(std::list<Stack>& result) {
   double res = std::log(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
@@ -226,23 +226,23 @@ void s21::Model::calc_process(std::list<Stack>& main,
     } else if (i.get_oper() == MOD) {
       mod_(result);
     } else if (i.get_oper() == COS) {
-      cos_(main, result);
+      cos_(result);
     } else if (i.get_oper() == SIN) {
-      sin_(main, result);
+      sin_(result);
     } else if (i.get_oper() == TAN) {
-      tan_(main, result);
+      tan_(result);
     } else if (i.get_oper() == ACOS) {
-      acos_(main, result);
+      acos_(result);
     } else if (i.get_oper() == ASIN) {
-      asin_(main, result);
+      asin_(result);
     } else if (i.get_oper() == ATAN) {
-      atan_(main, result);
+      atan_(result);
     } else if (i.get_oper() == SQRT) {
-      sqrt_(main, result);
+      sqrt_(result);
     } else if (i.get_oper() == LN) {
-      ln_(main, result);
+      ln_(result);
     } else if (i.get_oper() == LOG) {
-      log_(main, result);
+      log_(result);
     }
   }
 }
@@ -329,17 +329,26 @@ bool s21::Model::Check_Available_Print(std::string src) {
            j++) {
         if (src[j] == '.') count_++;
       }
-      if (count_ > 1) res = false;
+      if (count_ > 1) {
+          res = false;
+      } else {
+          res = true;
+      }
+      if (!(src[i + 1] == '+' || src[i + 1] == '-' || src[i + 1] == '*' ||
+                   src[i + 1] == '/' || src[i + 1] == '^' || src[i + 1] == '.' ||
+                   src[i + 1] == '\0' || src[i + 1] == ')')) res = false;
     }
+    if ((src[i] == '(' && src[i + 1] == ')') || (src[i] == ')' && src[i + 1] == '(')) res = false;
   }
-  return res;
+     return res;
 }
 
 bool s21::Model::Check_Available_Print_Func(std::string src) {
-  bool res = false;
+  bool res = true;
   for (size_t i = 0; i < src.size(); i++) {
     if (src[i] == 's' || src[i] == 'c' || src[i] == 't' || src[i] == 'a' ||
         src[i] == 'l' || src[i] == 'm') {
+        res = false;
       if ((src[i - 1] != 'a' && src[i - 1] != ')') &&
           (src[i] == 's' && src[i + 1] == 'i' && src[i + 2] == 'n' &&
            src[i + 3] == '(')) {

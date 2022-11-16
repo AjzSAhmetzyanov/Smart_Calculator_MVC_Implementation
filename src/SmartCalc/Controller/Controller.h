@@ -10,8 +10,8 @@ class Controller {
         Controller(){;}
         ~Controller(){;}
         double Calc_contr(std::string str, double x);
-        int Check_string(std::string str, size_t x);
-        int Check_string_func(std::string str, size_t x);
+        bool Check_string(std::string str);
+        bool Check_string_func(std::string str);
     };  
 }
 #endif // CONTROLLER_H_

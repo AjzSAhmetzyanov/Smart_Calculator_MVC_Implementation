@@ -204,10 +204,11 @@ void MainWindow::on_pushButton_29_clicked()  //.
 {
   ui->result_console->setText(ui->result_console->text() + ".");
 }
-void MainWindow::check_unary_minus(std::string str&) {
+void MainWindow::check_unary_minus(std::string& str) {
 if (*(str.begin().base()) == '-') {
-      std::string str_1 = "0-";
-      str.replace(str.begin(), str.begin() + 1, str_1);
+      std::string str_1 = "0";
+      size_t iter = str.find('-');
+      str.insert(iter, str_1);
     } else {
       std::string str_1 = "(-";
       std::string str_2 = "0";
@@ -222,25 +223,28 @@ if (*(str.begin().base()) == '-') {
 void MainWindow::on_pushButton_12_clicked()  // =
 {
   QPushButton *Button = (QPushButton *)sender();
-  if (ui->result_console->text().contains("x")) {
-    QString x_value = ui->result_console_x->text().toLatin1();
-    std::string str_x = x_value.toStdString();
-    QString barr = ui->result_console->text().toLatin1();
-    std::string str = barr.toStdString();
-     check_unary_minus(str);
-    if (str.length() <= 255) {
-      double respect = Controller_input->Calc_contr(str, 0);
-      QString new_label;
-      new_label = QString::number(respect, 'g', 15);
-      ui->result_console->setText(new_label);
-    } else {
-      ui->result_console->setText("Incorrect input");
-    }
+  if(ui->result_console->text().contains("x")) {
+                QString x_value = ui->result_console_x->text().toLatin1();
+                std::string str_x = x_value.toStdString();
+                QString barr = ui->result_console->text().toLatin1();
+                std::string str = barr.toStdString();
+                str.replace(str.find('x'), str.find('x') + 1, str_x);
+                ui->result_console_x->clear();
+                check_unary_minus(str);
+                if ((str.length() <= 255) && (Controller_input->Check_string(str) == 1) &&
+                        (Controller_input->Check_string_func(str) == 1)) {
+                    double respect = Controller_input->Calc_contr(str, 0);
+                    QString new_label;
+                    new_label = QString::number(respect, 'g', 15);
+                    ui->result_console->setText(new_label);
+                } else {
+                    ui->result_console->setText("Incorrect input");
+                }
   } else {
     QString barr = ui->result_console->text().toLatin1();
     std::string str = barr.toStdString();
-    check_unary_minus(str);
-    if ((Controller_input->Check_string(str) == 1) &&
+   check_unary_minus(str);
+    if ((str.length() <= 255) && (Controller_input->Check_string(str) == 1) &&
         (Controller_input->Check_string_func(str) == 1)) {
       double respect = Controller_input->Calc_contr(str, 0);
       QString new_label;
