@@ -374,9 +374,9 @@ bool s21::Model::Check_Available_Print_Func(std::string src) {
            src[i + 4] == '(')) {
         if (Check_Available_Print(src) == 1) res = true;
       }
-      if ((src[i - 1] != ')') && (src[i] == 'a') &&
-          (src[i + 1] == 't' && src[i + 2] == 'a' && src[i + 3] == 'n' &&
-           src[i + 4] == '(')) {
+      if (((src[i - 1] != ')') && (src[i] == 'a')) &&
+          ((src[i + 1] == 't' && src[i + 2] == 'a' && src[i + 3] == 'n' &&
+           src[i + 4] == '('))) {
         if (Check_Available_Print(src) == 1) res = true;
       }
       if ((src[i - 1] != ')') && (src[i] == 's') &&

@@ -148,7 +148,9 @@ void MainWindow::on_pushButton_18_clicked()  // ^
 }
 
 void MainWindow::on_pushButton_13_clicked()  // clear
-{}
+{
+    ui->result_console->setText(ui->result_console->text() + "е");
+}
 
 void MainWindow::on_pushButton_19_clicked()  // 1
 {
