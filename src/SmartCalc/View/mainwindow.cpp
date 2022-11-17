@@ -222,26 +222,14 @@ if (*(str.begin().base()) == '-') {
       };
 }
 void MainWindow::fix_e(std::string& str) {
-//    size_t pos = str.find('e');
-//       while (str[pos] >= '0' || str[pos] <= '9' || str[pos] == '.') {
-//           pos--;
-//       }
-//       std::string temp;
-//       for (auto iter = 0; str[pos] !=  'e'; pos++, iter++) {
-//           temp[iter] = str[pos];
-//       }
-//       pos = str.find('e');
-//       while (str[pos] >= '0' || str[pos] <= '9' || str[pos] == '.') {
-//           pos++;
-//       }
-//       std::string temp_1;
-//       for (auto iter = 0; str[pos] >= '0' || str[pos] <= '9' || str[pos] == '.'; pos++, iter++) {
-//           temp_1[iter] = str[pos];
-//       }
-//       std::string res = {temp, "*", 10, "^", temp_1};
-    str.replace(str.find('e'),str.find('e') + 2, "*10^");
-
+    for (auto i : str) {
+    if (str[i] == 'e' && str[i+1] == '+') str.replace(str.find(str[i]), 2, "*10^");
+    else if (str[i] == 'e' && str[i+1] == '-') str.replace(str.find(str[i]), 2, "/10^");
+    else ui->result_console->setText("Incorrect input");
+    //ui->result_console->clear();
+    }
 }
+
 void MainWindow::on_pushButton_12_clicked()  // =
 {
   QPushButton *Button = (QPushButton *)sender();
@@ -263,8 +251,8 @@ void MainWindow::on_pushButton_12_clicked()  // =
                     new_label = QString::number(respect, 'g', 15);
                     ui->result_console->setText(new_label);
                 } else {
-                    //ui->result_console->setText("Incorrect input");
-                      ui->result_console->clear();
+                    ui->result_console->setText("Incorrect input");
+                    //ui->result_console->clear();
                 }
   } else {
     QString barr = ui->result_console->text().toLatin1();
@@ -280,8 +268,8 @@ void MainWindow::on_pushButton_12_clicked()  // =
       new_label = QString::number(respect, 'g', 15);
       ui->result_console->setText(new_label);
     } else {
-      //ui->result_console->setText("Incorrect input");
-        ui->result_console->clear();
+        ui->result_console->setText("Incorrect input");
+        //ui->result_console->clear();
     }
     Button->setChecked(false);
   }
