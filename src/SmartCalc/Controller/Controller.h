@@ -9,9 +9,9 @@ class Controller {
     public:
         Controller(){;}
         ~Controller(){;}
-        double Calc_contr(std::string str, double x);
-        bool Check_string(std::string str);
-        bool Check_string_func(std::string str);
+        double Calc_contr(std::string& str, double x);
+        bool Check_string(std::string& str);
+        bool Check_string_func(std::string& str);
     };  
 }
 #endif // CONTROLLER_H_

@@ -149,7 +149,7 @@ void MainWindow::on_pushButton_18_clicked()  // ^
 
 void MainWindow::on_pushButton_13_clicked()  // clear
 {
-    ui->result_console->setText(ui->result_console->text() + "е");
+    ui->result_console->setText(ui->result_console->text() + "e");
 }
 
 void MainWindow::on_pushButton_19_clicked()  // 1
@@ -211,7 +211,7 @@ if (*(str.begin().base()) == '-') {
       std::string str_1 = "0";
       size_t iter = str.find('-');
       str.insert(iter, str_1);
-    } else {
+    }
       std::string str_1 = "(-";
       std::string str_2 = "0";
       size_t iter = str.find(str_1);
@@ -220,7 +220,27 @@ if (*(str.begin().base()) == '-') {
         iter = str.find(str_1);
         continue;
       };
-    }
+}
+void MainWindow::fix_e(std::string& str) {
+//    size_t pos = str.find('e');
+//       while (str[pos] >= '0' || str[pos] <= '9' || str[pos] == '.') {
+//           pos--;
+//       }
+//       std::string temp;
+//       for (auto iter = 0; str[pos] !=  'e'; pos++, iter++) {
+//           temp[iter] = str[pos];
+//       }
+//       pos = str.find('e');
+//       while (str[pos] >= '0' || str[pos] <= '9' || str[pos] == '.') {
+//           pos++;
+//       }
+//       std::string temp_1;
+//       for (auto iter = 0; str[pos] >= '0' || str[pos] <= '9' || str[pos] == '.'; pos++, iter++) {
+//           temp_1[iter] = str[pos];
+//       }
+//       std::string res = {temp, "*", 10, "^", temp_1};
+    str.replace(str.find('e'),str.find('e') + 2, "*10^");
+
 }
 void MainWindow::on_pushButton_12_clicked()  // =
 {
@@ -232,28 +252,36 @@ void MainWindow::on_pushButton_12_clicked()  // =
                 std::string str = barr.toStdString();
                 str.replace(str.find('x'), str.find('x') + 1, str_x);
                 ui->result_console_x->clear();
+                if (ui->result_console->text().contains("e")) {
+                    fix_e(str);
+                }
                 check_unary_minus(str);
-                if ((str.length() <= 255) && (Controller_input->Check_string(str) == 1) &&
-                        (Controller_input->Check_string_func(str) == 1)) {
+                if ((str.length() <= 255) && (Controller_input->Check_string(str)) &&
+                        (Controller_input->Check_string_func(str))) {
                     double respect = Controller_input->Calc_contr(str, 0);
                     QString new_label;
                     new_label = QString::number(respect, 'g', 15);
                     ui->result_console->setText(new_label);
                 } else {
-                    ui->result_console->setText("Incorrect input");
+                    //ui->result_console->setText("Incorrect input");
+                      ui->result_console->clear();
                 }
   } else {
     QString barr = ui->result_console->text().toLatin1();
     std::string str = barr.toStdString();
-   check_unary_minus(str);
-    if ((str.length() <= 255) && (Controller_input->Check_string(str) == 1) &&
-        (Controller_input->Check_string_func(str) == 1)) {
+    if (ui->result_console->text().contains("e")) {
+        fix_e(str);
+    }
+    check_unary_minus(str);
+    if ((str.length() <= 255) && (Controller_input->Check_string(str)) &&
+        (Controller_input->Check_string_func(str))) {
       double respect = Controller_input->Calc_contr(str, 0);
       QString new_label;
       new_label = QString::number(respect, 'g', 15);
       ui->result_console->setText(new_label);
     } else {
-      ui->result_console->setText("Incorrect input");
+      //ui->result_console->setText("Incorrect input");
+        ui->result_console->clear();
     }
     Button->setChecked(false);
   }

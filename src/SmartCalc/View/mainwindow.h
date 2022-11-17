@@ -97,6 +97,7 @@ private:
     Ui::MainWindow *ui;
     s21::Controller *Controller_input = new s21::Controller();
     void check_unary_minus(std::string& str);
+    void fix_e(std::string& str);
     double xBegin, xEnd, h, X, Y, yBegin, yEnd;
         int N;
         QVector<double> x, y;

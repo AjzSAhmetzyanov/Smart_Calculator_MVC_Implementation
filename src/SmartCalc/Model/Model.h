@@ -67,10 +67,10 @@ class Model {
   void sqrt_(std::list<Stack>& result);
   void ln_(std::list<Stack>& result);
   void log_(std::list<Stack>& result);
-  bool Check_Available_Print_Func(std::string src);
-  bool Check_Available_Print(std::string src);
-  double start(std::string str, double x);
-  void parse_lexeme(std::string src, std::list<Stack>& operand, double x);
+  bool Check_Available_Print_Func(std::string& src);
+  bool Check_Available_Print(std::string& src);
+  double start(std::string& str, double x);
+  void parse_lexeme(std::string& src, std::list<Stack>& operand, double x);
   void polish_note(std::list<Stack>& operand, std::list<Stack>& main,
                    std::list<Stack>& support);
   void calc_process(std::list<Stack>& main, std::list<Stack>& result);
