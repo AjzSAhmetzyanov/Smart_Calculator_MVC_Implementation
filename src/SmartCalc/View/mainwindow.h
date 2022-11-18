@@ -100,8 +100,8 @@ class MainWindow : public QMainWindow {
  private:
   Ui::MainWindow* ui;
   s21::Controller* Controller_input = new s21::Controller();
-  void check_unary_minus(std::string& str);
-  void fix_e(std::string& str);
+//   void check_unary_minus(std::string& str);
+//   void fix_e(std::string& str);
   void Calc_x();
   void Calc_();
   void Create_graph();

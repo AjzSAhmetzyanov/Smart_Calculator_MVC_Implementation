@@ -194,74 +194,78 @@ void MainWindow::on_pushButton_30_clicked()  // 9
 {
   ui->result_console->setText(ui->result_console->text() + "9");
 }
-
 void MainWindow::on_pushButton_27_clicked()  // 0
 {
   ui->result_console->setText(ui->result_console->text() + "0");
 }
-
 void MainWindow::on_pushButton_29_clicked()  //.
 {
   ui->result_console->setText(ui->result_console->text() + ".");
 }
-void MainWindow::check_unary_minus(std::string &str) {
-  if (*(str.begin().base()) == '-') {
-    str::string str_1 = "0-" str.replace(str.begin(), 1, str_1);
-  }
-  std::string str_1 = "(-";
-  std::string str_2 = "0";
-  size_t iter = str.find(str_1);
-  while (iter != -1) {
-    str.insert(iter + 1, str_2);
-    iter = str.find(str_1);
-    continue;
-  };
-}
-void MainWindow::fix_e(std::string &str) {
-  std::string str_1 = "e-";
-  std::string str_2 = "/10^";
-  std::string str_1_ = "e+";
-  std::string str_2_ = "*10^";
-  auto iter = str.find("e");
-  while (iter != -1) {
-    if (str.find(str_1) != std::string::npos) {
-      str.replace(str.find(str_1), str_1.size(), str_2);
-    }
-    if (str.find(str_1_) != std::string::npos) {
-      str.replace(str.find(str_1_), str_1_.size(), str_2_);
-    } else
-      ui->result_console->setText("Incorrect input");
-    iter = str.find("e");
-    continue;
-  }
-}
+// void MainWindow::check_unary_minus(std::string &str) {
+//   if (*(str.begin().base()) == '-') {
+//     std::string str_1 = "0-" str.replace(str.begin(), 1, str_1);
+//   }
+//   std::string str_1 = "(-";
+//   std::string str_2 = "0";
+//   size_t iter = str.find(str_1);
+//   while (iter != -1) {
+//     str.insert(iter + 1, str_2);
+//     iter = str.find(str_1);
+//     continue;
+//   };
+// }
+// void MainWindow::fix_e(std::string &str) {
+//   std::string str_1 = "e-";
+//   std::string str_2 = "/10^";
+//   std::string str_1_ = "e+";
+//   std::string str_2_ = "*10^";
+//   auto iter = str.find("e");
+//   while (iter != -1) {
+//     if (str.find(str_1) != std::string::npos) {
+//       str.replace(str.find(str_1), str_1.size(), str_2);
+//     }
+//     if (str.find(str_1_) != std::string::npos) {
+//       str.replace(str.find(str_1_), str_1_.size(), str_2_);
+//     } else
+//       ui->result_console->setText("Incorrect input");
+//     iter = str.find("e");
+//     continue;
+//   }
+// }
 void MainWindow::Calc_x() {
   QString x_value = ui->result_console_x->text().toLatin1();
   std::string str_x = x_value.toStdString();
   QString barr = ui->result_console->text().toLatin1();
   std::string str = barr.toStdString();
-  check_unary_minus(str);
   if (str.length() <= 255) {
     double respect = Controller_input->Calc_contr(str, 0);
     QString new_label;
     new_label = QString::number(respect, 'g', 15);
-    ui->result_console->setText(new_label);
-  } else {
-    ui->result_console->setText("Incorrect input");
+    if (respect != NULL) {
+      ui->result_console->setText(new_label);
+    } else {
+      ui->result_console->setText("Incorrect input");
+    }
   }
 }
+
 void MainWindow::Calc_() {
   QString barr = ui->result_console->text().toLatin1();
   std::string str = barr.toStdString();
-  check_unary_minus(str);
-  if ((Controller_input->Check_string(str) == 1) &&
-      (Controller_input->Check_string_func(str) == 1)) {
+  double respect = Controller_input->Calc_contr(str, 0);
+  QString new_label;
+  if (str.length() <= 255) {
     double respect = Controller_input->Calc_contr(str, 0);
     QString new_label;
     new_label = QString::number(respect, 'g', 15);
-    ui->result_console->setText(new_label);
+    if (respect != NULL) {
+      ui->result_console->setText(new_label);
+    } else {
+      ui->result_console->setText("Incorrect input");
+    }
   } else {
-    ui->result_console->setText("Incorrect input");
+    ui->result_console->setText("Max size");
   }
 }
 
