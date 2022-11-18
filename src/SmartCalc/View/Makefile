@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGC =  -Wall -Werror -Wextra  -std=c11 
-SOURCES = stack_func.c parser.c check_print.c
-OBJECTS = stack_func.o parser.o check_print.o
+SOURCES = 
+OBJECTS = 
 
 
 all: tests

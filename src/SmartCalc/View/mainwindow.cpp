@@ -204,53 +204,76 @@ void MainWindow::on_pushButton_29_clicked()  //.
 {
   ui->result_console->setText(ui->result_console->text() + ".");
 }
-void MainWindow::check_unary_minus(std::string str&) {
-if (*(str.begin().base()) == '-') {
-      std::string str_1 = "0-";
-      str.replace(str.begin(), str.begin() + 1, str_1);
-    } else {
-      std::string str_1 = "(-";
-      std::string str_2 = "0";
-      size_t iter = str.find(str_1);
-      while (iter != -1) {
-        str.insert(iter + 1, str_2);
-        iter = str.find(str_1);
-        continue;
-      };
-    }
+void MainWindow::check_unary_minus(std::string &str) {
+  if (*(str.begin().base()) == '-') {
+    str::string str_1 = "0-" str.replace(str.begin(), 1, str_1);
+  }
+  std::string str_1 = "(-";
+  std::string str_2 = "0";
+  size_t iter = str.find(str_1);
+  while (iter != -1) {
+    str.insert(iter + 1, str_2);
+    iter = str.find(str_1);
+    continue;
+  };
 }
+void MainWindow::fix_e(std::string &str) {
+  std::string str_1 = "e-";
+  std::string str_2 = "/10^";
+  std::string str_1_ = "e+";
+  std::string str_2_ = "*10^";
+  auto iter = str.find("e");
+  while (iter != -1) {
+    if (str.find(str_1) != std::string::npos) {
+      str.replace(str.find(str_1), str_1.size(), str_2);
+    }
+    if (str.find(str_1_) != std::string::npos) {
+      str.replace(str.find(str_1_), str_1_.size(), str_2_);
+    } else
+      ui->result_console->setText("Incorrect input");
+    iter = str.find("e");
+    continue;
+  }
+}
+void MainWindow::Calc_x() {
+  QString x_value = ui->result_console_x->text().toLatin1();
+  std::string str_x = x_value.toStdString();
+  QString barr = ui->result_console->text().toLatin1();
+  std::string str = barr.toStdString();
+  check_unary_minus(str);
+  if (str.length() <= 255) {
+    double respect = Controller_input->Calc_contr(str, 0);
+    QString new_label;
+    new_label = QString::number(respect, 'g', 15);
+    ui->result_console->setText(new_label);
+  } else {
+    ui->result_console->setText("Incorrect input");
+  }
+}
+void MainWindow::Calc_() {
+  QString barr = ui->result_console->text().toLatin1();
+  std::string str = barr.toStdString();
+  check_unary_minus(str);
+  if ((Controller_input->Check_string(str) == 1) &&
+      (Controller_input->Check_string_func(str) == 1)) {
+    double respect = Controller_input->Calc_contr(str, 0);
+    QString new_label;
+    new_label = QString::number(respect, 'g', 15);
+    ui->result_console->setText(new_label);
+  } else {
+    ui->result_console->setText("Incorrect input");
+  }
+}
+
 void MainWindow::on_pushButton_12_clicked()  // =
 {
   QPushButton *Button = (QPushButton *)sender();
   if (ui->result_console->text().contains("x")) {
-    QString x_value = ui->result_console_x->text().toLatin1();
-    std::string str_x = x_value.toStdString();
-    QString barr = ui->result_console->text().toLatin1();
-    std::string str = barr.toStdString();
-     check_unary_minus(str);
-    if (str.length() <= 255) {
-      double respect = Controller_input->Calc_contr(str, 0);
-      QString new_label;
-      new_label = QString::number(respect, 'g', 15);
-      ui->result_console->setText(new_label);
-    } else {
-      ui->result_console->setText("Incorrect input");
-    }
+    Calc_x();
   } else {
-    QString barr = ui->result_console->text().toLatin1();
-    std::string str = barr.toStdString();
-    check_unary_minus(str);
-    if ((Controller_input->Check_string(str) == 1) &&
-        (Controller_input->Check_string_func(str) == 1)) {
-      double respect = Controller_input->Calc_contr(str, 0);
-      QString new_label;
-      new_label = QString::number(respect, 'g', 15);
-      ui->result_console->setText(new_label);
-    } else {
-      ui->result_console->setText("Incorrect input");
-    }
-    Button->setChecked(false);
+    Calc_();
   }
+  Button->setChecked(false);
 }
 
 void MainWindow::on_pushButton_31_clicked()  // (
@@ -265,6 +288,30 @@ void MainWindow::on_pushButton_32_clicked()  // )
 
 void MainWindow::on_pushButton_34_clicked() { ui->result_console->clear(); }
 
+void Create_graph() {
+  QString barr = ui->result_console->text().toLatin1();
+  std::string str = barr.toStdString();
+  check_unary_minus(str);
+  h = 0.1;
+  xBegin = (ui->xmin->text()).toDouble();
+  yBegin = (ui->ymin->text()).toDouble();
+  xEnd = (ui->xmax->text()).toDouble() + h;
+  yEnd = (ui->ymin->text()).toDouble();
+  ui->widget->xAxis->setRange(xBegin, xEnd);
+  ui->widget->yAxis->setRange(yBegin, yEnd);
+  X = xBegin;
+  N = (xEnd - xBegin) / h + 2;
+  for (X = xBegin; X <= xEnd; X += h) {
+    x.push_back(X);
+    y.push_back(Controller_input->Calc_contr(str, X));
+  }
+  ui->widget->addGraph();
+  ui->widget->graph()->addData(x, y);
+  ui->widget->replot();
+  x.clear();
+  y.clear();
+}
+
 void MainWindow::on_pushButton_35_clicked() {
   ui->widget->clearGraphs();
   if (!(ui->xmin->text()).toDouble() || !(ui->ymin->text()).toDouble() ||
@@ -274,26 +321,6 @@ void MainWindow::on_pushButton_35_clicked() {
     x.clear();
     y.clear();
   } else {
-    QString barr = ui->result_console->text().toLatin1();
-    std::string str = barr.toStdString();
-    check_unary_minus(str);
-    h = 0.1;
-    xBegin = (ui->xmin->text()).toDouble();
-    yBegin = (ui->ymin->text()).toDouble();
-    xEnd = (ui->xmax->text()).toDouble() + h;
-    yEnd = (ui->ymin->text()).toDouble();
-    ui->widget->xAxis->setRange(xBegin, xEnd);
-    ui->widget->yAxis->setRange(yBegin, yEnd);
-    X = xBegin;
-    N = (xEnd - xBegin) / h + 2;
-    for (X = xBegin; X <= xEnd; X += h) {
-      x.push_back(X);
-      y.push_back(Controller_input->Calc_contr(str, X));
-    }
-    ui->widget->addGraph();
-    ui->widget->graph()->addData(x, y);
-    ui->widget->replot();
-    x.clear();
-    y.clear();
+    Create_graph();
   }
 }

@@ -1,6 +1,7 @@
 #ifndef MODEL_H_
 #define MODEL_H_
 #include <stdlib.h>
+
 #include <cmath>
 #include <iostream>
 #include <string>
@@ -76,4 +77,5 @@ class Model {
   void calc_process(std::list<Stack>& main, std::list<Stack>& result);
 };
 }  // namespace s21
-#endif  // MODEL_H_f
+#endif  // MODEL_H_
+
