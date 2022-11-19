@@ -287,17 +287,64 @@ void s21::Model::polish_note(std::list<Stack>& operand, std::list<Stack>& main,
   }
 }
 
-double s21::Model::start(std::string& str, double x) {
-  std::string new_str;
-  double res = 0;
-  std::list<Stack> operand;
-  parse_lexeme(str, operand, x);
-  std::list<Stack> main;
-  std::list<Stack> support;
-  polish_note(operand, main, support);
-  std::list<Stack> result;
-  calc_process(main, result);
-  res = result.back().get_value();
+void s21::Model::check_unary_minus(std::string& str) {
+  if ((*str.begin()) == '-') {
+    std::string str_1 = "0-";
+    str.replace(str.find('-'), 1, str_1);
+  }
+  std::string str_1 = "(-";
+  std::string str_2 = "0";
+  size_t iter = str.find(str_1);
+  while (iter != -1) {
+    str.insert(iter + 1, str_2);
+    iter = str.find(str_1);
+    continue;
+  };
+}
+
+bool s21::Model::fix_e(std::string& str) {
+  bool res = true;
+  std::string str_1 = "e-";
+  std::string str_2 = "/10^";
+  std::string str_1_ = "e+";
+  std::string str_2_ = "*10^";
+  auto iter = str.find("e");
+  while (iter != -1) {
+    if (str.find(str_1) != std::string::npos) {
+      str.replace(str.find(str_1), str_1.size(), str_2);
+    }
+    if (str.find(str_1_) != std::string::npos) {
+      str.replace(str.find(str_1_), str_1_.size(), str_2_);
+    } else {
+      res = false;
+      break;
+    }
+    iter = str.find("e");
+    continue;
+  }
+  return res;
+}
+
+std::pair<double, bool> s21::Model::start(std::string& str, double x) {
+  std::pair<double, bool> res = { 0, true };
+  for (auto iter : str) {
+    if (iter == 'e') fix_e(str);
+    if (!fix_e(str)) res.second = false;
+  }
+  check_unary_minus(str);
+  if ((Check_Available_Print(str) == 1) &&
+      (Check_Available_Print_Func(str) == 1)) {
+    std::list<Stack> operand;
+    parse_lexeme(str, operand, x);
+    std::list<Stack> main;
+    std::list<Stack> support;
+    polish_note(operand, main, support);
+    std::list<Stack> result;
+    calc_process(main, result);
+    res.first = result.back().get_value();
+  } else {
+    res.second = false;
+  }
   return res;
 }
 

@@ -52,28 +52,30 @@ class Model {
  public:
   Model();
   ~Model();
-  void plus_(std::list<Stack>& result);
-  void sub_(std::list<Stack>& result);
-  void div_(std::list<Stack>& result);
-  void mult_(std::list<Stack>& result);
-  void pow_(std::list<Stack>& result);
-  void mod_(std::list<Stack>& result);
-  void cos_(std::list<Stack>& result);
-  void sin_(std::list<Stack>& result);
-  void tan_(std::list<Stack>& result);
-  void acos_(std::list<Stack>& result);
-  void asin_(std::list<Stack>& result);
-  void atan_(std::list<Stack>& result);
-  void sqrt_(std::list<Stack>& result);
-  void ln_(std::list<Stack>& result);
-  void log_(std::list<Stack>& result);
-  bool Check_Available_Print_Func(std::string& src);
-  bool Check_Available_Print(std::string& src);
-  double start(std::string& str, double x);
-  void parse_lexeme(std::string& src, std::list<Stack>& operand, double x);
-  void polish_note(std::list<Stack>& operand, std::list<Stack>& main,
-                   std::list<Stack>& support);
-  void calc_process(std::list<Stack>& main, std::list<Stack>& result);
+    void plus_(std::list<Stack>& result);
+    void sub_(std::list<Stack>& result);
+    void div_(std::list<Stack>& result);
+    void mult_(std::list<Stack>& result);
+    void pow_(std::list<Stack>& result);
+    void mod_(std::list<Stack>& result);
+    void cos_(std::list<Stack>& result);
+    void sin_(std::list<Stack>& result);
+    void tan_(std::list<Stack>& result);
+    void acos_(std::list<Stack>& result);
+    void asin_(std::list<Stack>& result);
+    void atan_(std::list<Stack>& result);
+    void sqrt_(std::list<Stack>& result);
+    void ln_(std::list<Stack>& result);
+    void log_(std::list<Stack>& result);
+    bool Check_Available_Print_Func(std::string& src);
+    bool Check_Available_Print(std::string& src);
+    std::pair<double, bool> start(std::string& str, double x);
+    void parse_lexeme(std::string& src, std::list<Stack>& operand, double x);
+    void polish_note(std::list<Stack>& operand, std::list<Stack>& main,
+                     std::list<Stack>& support);
+    void calc_process(std::list<Stack>& main, std::list<Stack>& result);
+    void check_unary_minus(std::string &str);
+    bool fix_e(std::string& str);
 };
 }  // namespace s21
 #endif  // MODEL_H_f

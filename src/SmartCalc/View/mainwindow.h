@@ -94,12 +94,13 @@ private slots:
     void on_pushButton_35_clicked();
 
 private:
-    Ui::MainWindow *ui;
-    s21::Controller *Controller_input = new s21::Controller();
-    void check_unary_minus(std::string& str);
-    void fix_e(std::string& str);
-    double xBegin, xEnd, h, X, Y, yBegin, yEnd;
-        int N;
-        QVector<double> x, y;
+    Ui::MainWindow* ui;
+     s21::Controller* Controller_input = new s21::Controller();
+     void Calc_x();
+     void Calc_();
+     void Create_graph();
+     double xBegin, xEnd, h, X, Y, yBegin, yEnd;
+     int N;
+     QVector<double> x, y;
 };
 #endif // MAINWINDOW_H
