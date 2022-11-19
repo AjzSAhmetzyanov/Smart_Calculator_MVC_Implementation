@@ -295,7 +295,7 @@ void s21::Model::check_unary_minus(std::string& str) {
   std::string str_1 = "(-";
   std::string str_2 = "0";
   size_t iter = str.find(str_1);
-  while (iter != -1) {
+  while (iter != std::string::npos) {
     str.insert(iter + 1, str_2);
     iter = str.find(str_1);
     continue;
@@ -309,11 +309,11 @@ bool s21::Model::fix_e(std::string& str) {
   std::string str_1_ = "e+";
   std::string str_2_ = "*10^";
   auto iter = str.find("e");
-  while (iter != -1) {
+  while (iter != std::string::npos) {
     if (str.find(str_1) != std::string::npos) {
       str.replace(str.find(str_1), str_1.size(), str_2);
     }
-    if (str.find(str_1_) != std::string::npos) {
+    else if (str.find(str_1_) != std::string::npos) {
       str.replace(str.find(str_1_), str_1_.size(), str_2_);
     } else {
       res = false;

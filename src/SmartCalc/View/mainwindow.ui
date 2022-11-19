@@ -1224,6 +1224,9 @@ QPushButton:pressed {
     <property name="maximum">
      <number>10</number>
     </property>
+    <property name="value">
+     <number>5</number>
+    </property>
    </widget>
    <widget class="QPushButton" name="pushButton_38">
     <property name="geometry">
@@ -1286,6 +1289,9 @@ QPushButton:pressed {
     <property name="maximum">
      <number>10</number>
     </property>
+    <property name="value">
+     <number>-5</number>
+    </property>
    </widget>
    <widget class="QCustomPlot" name="widget" native="true">
     <property name="geometry">
@@ -1317,6 +1323,9 @@ QPushButton:pressed {
     </property>
     <property name="maximum">
      <number>10</number>
+    </property>
+    <property name="value">
+     <number>5</number>
     </property>
    </widget>
    <widget class="QSpinBox" name="xmin">
@@ -1358,6 +1367,9 @@ QPushButton:pressed {
     </property>
     <property name="maximum">
      <number>10</number>
+    </property>
+    <property name="value">
+     <number>-5</number>
     </property>
    </widget>
    <widget class="QLineEdit" name="result_console_x">

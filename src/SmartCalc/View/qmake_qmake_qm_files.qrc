@@ -1,5 +1,5 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="i18n">
-<file alias="SmartCalc_en_150.qm">/Users/luigiket/github/SmartCalc/C7_SmartCalc_v1.0-0/src/SmartCalc/.qm/SmartCalc_en_150.qm</file>
+<file alias="SmartCalc_en_150.qm">/Users/luigiket/Smart_Calculator_MVC_V_2.0/src/SmartCalc/View/.qm/SmartCalc_en_150.qm</file>
 </qresource>
 </RCC>

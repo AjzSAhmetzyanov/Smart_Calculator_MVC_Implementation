@@ -217,7 +217,7 @@ void MainWindow::Calc_x() {
   if (str.length() <= 255) {
     std::pair<double, bool> respect = Controller_input->Calc_contr(str, 0);
     QString new_label;
-    new_label = QString::number(respect.first, 'g', 15);
+    new_label = QString::number(respect.first, 'g', 7);
     if (respect.second) {
       ui->result_console->setText(new_label);
     } else {
@@ -232,7 +232,7 @@ void MainWindow::Calc_() {
   if (str.length() <= 255) {
       std::pair<double, bool> respect = Controller_input->Calc_contr(str, 0);
       QString new_label;
-      new_label = QString::number(respect.first, 'g', 15);
+      new_label = QString::number(respect.first, 'g', 7);
       if (respect.second) {
       ui->result_console->setText(new_label);
     } else {
@@ -280,7 +280,8 @@ void MainWindow::Create_graph() {
   N = (xEnd - xBegin) / h + 2;
   for (X = xBegin; X <= xEnd; X += h) {
     x.push_back(X);
-    y.push_back(Controller_input->Calc_contr(str, X).first);
+    if (!Controller_input->Calc_contr(str, X).second) ui->result_console->setText("Incorrect function");
+    else y.push_back(Controller_input->Calc_contr(str, X).first);
   }
   ui->widget->addGraph();
   ui->widget->graph()->addData(x, y);
