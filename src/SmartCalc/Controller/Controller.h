@@ -9,7 +9,7 @@ private:
 
 public:
   Controller() { ; }
-  ~Controller() { ; }
+  ~Controller() { delete model_str; }
   std::pair<double, bool> Calc_contr(std::string &str, double x);
 };
 } // namespace s21

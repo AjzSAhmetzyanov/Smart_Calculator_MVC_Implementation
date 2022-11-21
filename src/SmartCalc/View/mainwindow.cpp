@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -17,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->pushButton_9, SIGNAL(clicked()), this, SLOT(digits_numbers()));
   connect(ui->pushButton_10, SIGNAL(clicked()), this, SLOT(digits_numbers()));
   connect(ui->pushButton_11, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-  connect(ui->pushButton_12, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+  connect(ui->pushButton_13, SIGNAL(clicked()), this, SLOT(digits_numbers()));
   connect(ui->pushButton_14, SIGNAL(clicked()), this, SLOT(digits_numbers()));
   connect(ui->pushButton_15, SIGNAL(clicked()), this, SLOT(digits_numbers()));
   connect(ui->pushButton_16, SIGNAL(clicked()), this, SLOT(digits_numbers()));
@@ -48,9 +47,14 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::digits_numbers() {
+  QPushButton *button = (QPushButton *)sender();
   QString new_lable;
   new_lable = (ui->result_console->text());
-  ui->result_console->setText(new_lable);
+  if (!find_error()) {
+    ui->result_console->clear();
+    new_lable.clear();
+  }
+  ui->result_console->setText(new_lable + button->text());
 }
 
 void MainWindow::operations() {
@@ -67,173 +71,6 @@ void MainWindow::operations() {
   }
 }
 
-void MainWindow::on_pushButton_clicked() { // sin
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "sin(");
-}
-
-void MainWindow::on_pushButton_2_clicked() { // cos
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "cos(");
-}
-
-void MainWindow::on_pushButton_3_clicked() { // tan
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "tan(");
-}
-
-void MainWindow::on_pushButton_4_clicked() { // asin
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "asin(");
-}
-
-void MainWindow::on_pushButton_5_clicked() { // acos
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "acos(");
-}
-
-void MainWindow::on_pushButton_6_clicked() { // atan
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "atan(");
-}
-
-void MainWindow::on_pushButton_7_clicked() { // sqrt
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "sqrt(");
-}
-
-void MainWindow::on_pushButton_8_clicked() { // ln
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "ln(");
-}
-
-void MainWindow::on_pushButton_9_clicked() { // log
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "log(");
-}
-
-void MainWindow::on_pushButton_10_clicked() { // mod
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "mod(");
-}
-
-void MainWindow::on_pushButton_11_clicked() { // X
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "x");
-}
-
-void MainWindow::on_pushButton_14_clicked() { //+
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "+");
-}
-
-void MainWindow::on_pushButton_15_clicked() { //-
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "-");
-}
-
-void MainWindow::on_pushButton_16_clicked() { //*
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "*");
-}
-
-void MainWindow::on_pushButton_17_clicked() { // /
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "/");
-}
-
-void MainWindow::on_pushButton_18_clicked() { // ^
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "^");
-}
-
-void MainWindow::on_pushButton_13_clicked() { // e
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "e");
-}
-
-void MainWindow::on_pushButton_19_clicked() { // 1
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "1");
-}
-
-void MainWindow::on_pushButton_20_clicked() { // 2
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "2");
-}
-
-void MainWindow::on_pushButton_21_clicked() { // 3
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "3");
-}
-
-void MainWindow::on_pushButton_22_clicked() { // 4
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "4");
-}
-
-void MainWindow::on_pushButton_23_clicked() { // 5
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "5");
-}
-
-void MainWindow::on_pushButton_24_clicked() { // 6
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "6");
-}
-
-void MainWindow::on_pushButton_26_clicked() { // 7
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "7");
-}
-
-void MainWindow::on_pushButton_25_clicked() { // 8
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "8");
-}
-
-void MainWindow::on_pushButton_30_clicked() { // 9
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "9");
-}
-
-void MainWindow::on_pushButton_27_clicked() { // 0
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + "0");
-}
-
-void MainWindow::on_pushButton_29_clicked() { //.
-  if (!find_error())
-    ui->result_console->clear();
-  ui->result_console->setText(ui->result_console->text() + ".");
-}
 bool MainWindow::find_error() {
   bool res = true;
   QString barr = ui->result_console->text().toLatin1();
@@ -290,16 +127,6 @@ void MainWindow::on_pushButton_12_clicked() // =
     Calc_();
   }
   Button->setChecked(false);
-}
-
-void MainWindow::on_pushButton_31_clicked() // (
-{
-  ui->result_console->setText(ui->result_console->text() + "(");
-}
-
-void MainWindow::on_pushButton_32_clicked() // )
-{
-  ui->result_console->setText(ui->result_console->text() + ")");
 }
 
 void MainWindow::on_pushButton_34_clicked() { ui->result_console->clear(); }

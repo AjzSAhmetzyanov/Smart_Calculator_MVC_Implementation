@@ -43,7 +43,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>SIN</string>
+     <string>sin(</string>
     </property>
     <property name="iconSize">
      <size>
@@ -75,7 +75,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>COS</string>
+     <string>cos(</string>
     </property>
     <property name="iconSize">
      <size>
@@ -107,7 +107,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>TAN</string>
+     <string>tan(</string>
     </property>
     <property name="iconSize">
      <size>
@@ -139,7 +139,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>ASIN</string>
+     <string>asin(</string>
     </property>
     <property name="iconSize">
      <size>
@@ -171,7 +171,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>ACOS</string>
+     <string>acos(</string>
     </property>
     <property name="iconSize">
      <size>
@@ -203,7 +203,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>ATAN</string>
+     <string>atan(</string>
     </property>
     <property name="iconSize">
      <size>
@@ -235,7 +235,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>SQRT</string>
+     <string>sqrt(</string>
     </property>
     <property name="iconSize">
      <size>
@@ -267,7 +267,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>LN</string>
+     <string>ln(</string>
     </property>
     <property name="iconSize">
      <size>
@@ -299,7 +299,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>LOG</string>
+     <string>log(</string>
     </property>
     <property name="iconSize">
      <size>
@@ -331,7 +331,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>%</string>
+     <string>mod(</string>
     </property>
     <property name="iconSize">
      <size>
@@ -364,7 +364,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>X</string>
+     <string>x</string>
     </property>
     <property name="iconSize">
      <size>
@@ -1082,7 +1082,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>е</string>
+     <string>e</string>
     </property>
     <property name="iconSize">
      <size>

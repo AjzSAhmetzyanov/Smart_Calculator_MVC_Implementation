@@ -67,7 +67,10 @@ public:
   void sqrt_(std::list<Stack> &result);
   void ln_(std::list<Stack> &result);
   void log_(std::list<Stack> &result);
-  bool Check_Available_Print_Func(std::string &src);
+  bool is_digit(char &src);
+  bool is_operand(char &src);
+  bool operand_next(char &src);
+  bool brackes_check(std::string &src);
   bool Check_Available_Print(std::string &src);
   std::pair<double, bool> start(std::string &str, double x);
   void parse_lexeme(std::string &src, std::list<Stack> &operand, double x);
@@ -78,4 +81,4 @@ public:
   bool fix_e(std::string &str);
 };
 } // namespace s21
-#endif // MODEL_H_f
+#endif // MODEL_H_

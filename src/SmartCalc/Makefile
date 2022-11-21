@@ -41,7 +41,7 @@ install:
 	cd View && qmake && make && make clean && rm Makefile && cd ../ && mkdir build && mv View/SmartCalc.app build/
 
 uninstall:
-	rm -rf ../build/SmartCalc_v2.app
+	rm -rf build
 
 build_s21_smartcalc_oop:
 	gcc -c Controller/Controller.cc Model/Model.cc
