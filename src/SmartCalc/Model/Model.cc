@@ -6,7 +6,7 @@ using namespace s21;
 s21::Model::Model() { ; }
 s21::Model::~Model() { ; }
 
-void s21::Model::parse_lexeme(std::string& src, std::list<Stack>& operand,
+void s21::Model::parse_lexeme(std::string &src, std::list<Stack> &operand,
                               double x) {
   for (size_t i = 0; i < src.length(); i++) {
     if ((src[i] >= '0' && src[i] <= '9') || src[i] == '.') {
@@ -91,7 +91,7 @@ void s21::Model::parse_lexeme(std::string& src, std::list<Stack>& operand,
   }
 }
 
-void s21::Model::plus_(std::list<Stack>& result) {
+void s21::Model::plus_(std::list<Stack> &result) {
   double b = result.back().get_value();
   result.pop_back();
   double res = result.back().get_value() + b;
@@ -100,7 +100,7 @@ void s21::Model::plus_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::sub_(std::list<Stack>& result) {
+void s21::Model::sub_(std::list<Stack> &result) {
   double b = result.back().get_value();
   result.pop_back();
   double res = result.back().get_value() - b;
@@ -109,7 +109,7 @@ void s21::Model::sub_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::div_(std::list<Stack>& result) {
+void s21::Model::div_(std::list<Stack> &result) {
   double b = result.back().get_value();
   result.pop_back();
   double res = result.back().get_value() / b;
@@ -118,7 +118,7 @@ void s21::Model::div_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::mult_(std::list<Stack>& result) {
+void s21::Model::mult_(std::list<Stack> &result) {
   double b = result.back().get_value();
   result.pop_back();
   double res = result.back().get_value() * b;
@@ -127,7 +127,7 @@ void s21::Model::mult_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::pow_(std::list<Stack>& result) {
+void s21::Model::pow_(std::list<Stack> &result) {
   double b = result.back().get_value();
   result.pop_back();
   double res = pow((result.back().get_value()), b);
@@ -136,7 +136,7 @@ void s21::Model::pow_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::mod_(std::list<Stack>& result) {
+void s21::Model::mod_(std::list<Stack> &result) {
   double b = result.back().get_value();
   result.pop_back();
   double res = fmod(result.back().get_value(), b);
@@ -145,71 +145,71 @@ void s21::Model::mod_(std::list<Stack>& result) {
   result.push_back(obj);
 }
 
-void s21::Model::cos_(std::list<Stack>& result) {
+void s21::Model::cos_(std::list<Stack> &result) {
   double res = std::cos(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::sin_(std::list<Stack>& result) {
+void s21::Model::sin_(std::list<Stack> &result) {
   double res = std::sin(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::tan_(std::list<Stack>& result) {
+void s21::Model::tan_(std::list<Stack> &result) {
   double res = std::tan(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::acos_(std::list<Stack>& result) {
+void s21::Model::acos_(std::list<Stack> &result) {
   double res = std::acos(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::asin_(std::list<Stack>& result) {
+void s21::Model::asin_(std::list<Stack> &result) {
   double res = std::asin(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::atan_(std::list<Stack>& result) {
+void s21::Model::atan_(std::list<Stack> &result) {
   double res = std::atan(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::sqrt_(std::list<Stack>& result) {
+void s21::Model::sqrt_(std::list<Stack> &result) {
   double res = std::sqrt(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::ln_(std::list<Stack>& result) {
+void s21::Model::ln_(std::list<Stack> &result) {
   double res = std::log(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::log_(std::list<Stack>& result) {
+void s21::Model::log_(std::list<Stack> &result) {
   double res = std::log(result.back().get_value());
   result.pop_back();
   Stack obj(res, 0, NUMBER);
   result.push_back(obj);
 }
 
-void s21::Model::calc_process(std::list<Stack>& main,
-                              std::list<Stack>& result) {
+void s21::Model::calc_process(std::list<Stack> &main,
+                              std::list<Stack> &result) {
   for (auto i : main) {
     if ((i.get_oper() == NUMBER || i.get_oper() == XXX)) {
       result.push_back(i);
@@ -247,8 +247,8 @@ void s21::Model::calc_process(std::list<Stack>& main,
   }
 }
 
-void s21::Model::polish_note(std::list<Stack>& operand, std::list<Stack>& main,
-                             std::list<Stack>& support) {
+void s21::Model::polish_note(std::list<Stack> &operand, std::list<Stack> &main,
+                             std::list<Stack> &support) {
   if (!operand.empty()) {
     for (auto iter_operand : operand) {
       if (iter_operand.get_oper() == NUMBER || iter_operand.get_oper() == XXX) {
@@ -287,7 +287,7 @@ void s21::Model::polish_note(std::list<Stack>& operand, std::list<Stack>& main,
   }
 }
 
-void s21::Model::check_unary_minus(std::string& str) {
+void s21::Model::check_unary_minus(std::string &str) {
   if ((*str.begin()) == '-') {
     std::string str_1 = "0-";
     str.replace(str.find('-'), 1, str_1);
@@ -302,7 +302,7 @@ void s21::Model::check_unary_minus(std::string& str) {
   };
 }
 
-bool s21::Model::fix_e(std::string& str) {
+bool s21::Model::fix_e(std::string &str) {
   bool res = true;
   std::string str_1 = "e-";
   std::string str_2 = "/10^";
@@ -312,8 +312,7 @@ bool s21::Model::fix_e(std::string& str) {
   while (iter != std::string::npos) {
     if (str.find(str_1) != std::string::npos) {
       str.replace(str.find(str_1), str_1.size(), str_2);
-    }
-    else if (str.find(str_1_) != std::string::npos) {
+    } else if (str.find(str_1_) != std::string::npos) {
       str.replace(str.find(str_1_), str_1_.size(), str_2_);
     } else {
       res = false;
@@ -325,11 +324,15 @@ bool s21::Model::fix_e(std::string& str) {
   return res;
 }
 
-std::pair<double, bool> s21::Model::start(std::string& str, double x) {
-  std::pair<double, bool> res = { 0, true };
+std::pair<double, bool> s21::Model::start(std::string &str, double x) {
+  std::pair<double, bool> res = {0, true};
   for (auto iter : str) {
-    if (iter == 'e') fix_e(str);
-    if (!fix_e(str)) res.second = false;
+    if (iter == 'e')
+      fix_e(str);
+    if (!fix_e(str))
+      res.second = false;
+    if (str.find(iter) == std::string::npos)
+      break;
   }
   check_unary_minus(str);
   if ((Check_Available_Print(str) == 1) &&
@@ -348,97 +351,121 @@ std::pair<double, bool> s21::Model::start(std::string& str, double x) {
   return res;
 }
 
-bool s21::Model::Check_Available_Print(std::string& src) {
-  bool number_ = true, operand_ = true, brackets_ = true, num_oper = true, res = false;
+bool s21::Model::Check_Available_Print(std::string &src) {
+  bool number_ = true, operand_ = true, brackets_ = true, num_oper = true,
+       res = false;
   for (size_t i = 0; i < src.size(); i++) {
     if ((src[i] >= '0' && src[i] <= '9')) {
-        size_t count_ = 0;
-        for (size_t j = i; (src[j] >= '0' && src[j] <= '9') || (src[j] == '.');
-             j++) {
-          if (src[j] == '.') count_++;
-        }
-        if (count_ > 1) number_ = false;
-      } else {
-    if ((src[i] == '+' || src[i] == '-' || src[i] == '*' || src[i] == '/' ||
-         src[i] == '^' || src[i] == '.') &&
-        (src[i + 1] == '+' || src[i + 1] == '-' || src[i + 1] == '*' ||
-         src[i + 1] == '/' || src[i + 1] == '^' || src[i + 1] == '.' || src[i + 1] == '\0'))
-      operand_ = false;
-    if ((src[i] == '.') && (!(src[i + 1] >= '0' && src[i + 1] <= '9')))
-      operand_ = false;
-    if ((src[i] == '(') &&
-        (src[i + 1] == '+' || src[i + 1] == '*' || src[i + 1] == '/' ||
-         src[i + 1] == '^' || src[i + 1] == '.'))
-      operand_ = false;
-    if ((src[i] == ')') &&
-        (src[i - 1] == '+' || src[i - 1] == '-' || src[i - 1] == '*' ||
-         src[i - 1] == '/' || src[i - 1] == '^' || src[i - 1] == '.'))
-      operand_ = false;
+      size_t count_ = 0;
+      for (size_t j = i; (src[j] >= '0' && src[j] <= '9') || (src[j] == '.');
+           j++) {
+        if (src[j] == '.')
+          count_++;
       }
-    if ((src[i] >= '0' && src[i] <= '9') && (!(src[i+1] == '+' || src[i+1] == '-' || src[i+1] == '*' || src[i+1] == '/' ||
-         src[i+1] == '^' || src[i+1] == '.' || src[i+1] == '\0' || src[i+1] == ')' || (src[i+1] >= '0' && src[i+1] <= '9')))) num_oper = false;
-    if (!(std::count(src.begin(), src.end(), '(') ==
-        std::count(src.begin(), src.end(), ')'))) brackets_ = false;
-        else brackets_ = true;
+      if (count_ > 1)
+        number_ = false;
+    } else {
+      if ((src[i] == '+' || src[i] == '-' || src[i] == '*' || src[i] == '/' ||
+           src[i] == '^' || src[i] == '.') &&
+          (src[i + 1] == '+' || src[i + 1] == '-' || src[i + 1] == '*' ||
+           src[i + 1] == '/' || src[i + 1] == '^' || src[i + 1] == '.' ||
+           src[i + 1] == '\0'))
+        operand_ = false;
+      if ((src[i] == '.') && (!(src[i + 1] >= '0' && src[i + 1] <= '9')))
+        operand_ = false;
+      if ((src[i] == '(') &&
+          (src[i + 1] == '+' || src[i + 1] == '*' || src[i + 1] == '/' ||
+           src[i + 1] == '^' || src[i + 1] == '.'))
+        operand_ = false;
+      if ((src[i] == ')') &&
+          (src[i - 1] == '+' || src[i - 1] == '-' || src[i - 1] == '*' ||
+           src[i - 1] == '/' || src[i - 1] == '^' || src[i - 1] == '.'))
+        operand_ = false;
     }
-     if ((src.find(')')) == (src.find('(') + 1) || (src.find('(')) == (src.find(')') + 1)) brackets_ = false;
-     if (number_ && operand_ && brackets_ && num_oper) res = true;
-     return res;
+    if ((src[i] >= '0' && src[i] <= '9') &&
+        (!(src[i + 1] == '+' || src[i + 1] == '-' || src[i + 1] == '*' ||
+           src[i + 1] == '/' || src[i + 1] == '^' || src[i + 1] == '.' ||
+           src[i + 1] == '\0' || src[i + 1] == ')' ||
+           (src[i + 1] >= '0' && src[i + 1] <= '9') || src[i + 1] == 'm')))
+      num_oper = false;
+    if (!(std::count(src.begin(), src.end(), '(') ==
+          std::count(src.begin(), src.end(), ')')))
+      brackets_ = false;
+    else
+      brackets_ = true;
+  }
+  if ((src.find(')')) == (src.find('(') + 1) ||
+      (src.find('(')) == (src.find(')') + 1))
+    brackets_ = false;
+  if (number_ && operand_ && brackets_ && num_oper)
+    res = true;
+  return res;
 }
 
-bool s21::Model::Check_Available_Print_Func(std::string& src) {
+bool s21::Model::Check_Available_Print_Func(std::string &src) {
   bool res = true;
   for (size_t i = 0; i < src.size(); i++) {
     if (src[i] == 's' || src[i] == 'c' || src[i] == 't' || src[i] == 'a' ||
         src[i] == 'l' || src[i] == 'm') {
       if ((src[i - 1] != 'a' && src[i - 1] != ')') &&
           (src[i] == 's' && src[i + 1] == 'i' && src[i + 2] == 'n')) {
-           res = false;
-        if (Check_Available_Print(src) == 1 && src[i + 3] == '(') res = true;
+        res = false;
+        if (Check_Available_Print(src) == 1 && src[i + 3] == '(')
+          res = true;
       }
       if ((src[i - 1] != 'a' && src[i - 1] != ')') &&
           (src[i] == 'c' && src[i + 1] == 'o' && src[i + 2] == 's')) {
-           res = false;
-        if (Check_Available_Print(src) == 1 && src[i + 3] == '(') res = true;
+        res = false;
+        if (Check_Available_Print(src) == 1 && src[i + 3] == '(')
+          res = true;
       }
       if ((src[i - 1] != 'a' && src[i - 1] != ')') &&
           (src[i] == 't' && src[i + 1] == 'a' && src[i + 2] == 'n')) {
-           res = false;
-        if (Check_Available_Print(src) == 1 && src[i + 3] == '(') res = true;
+        res = false;
+        if (Check_Available_Print(src) == 1 && src[i + 3] == '(')
+          res = true;
       }
-      if (src[i - 1] != ')' && (src[i] == 'a') &&
-          src[i + 1] == 's' && src[i + 2] == 'i' && src[i + 3] == 'n') {
-           res = false;
-        if (Check_Available_Print(src) == 1 && src[i + 4] == '(') res = true;
+      if (src[i - 1] != ')' && (src[i] == 'a') && src[i + 1] == 's' &&
+          src[i + 2] == 'i' && src[i + 3] == 'n') {
+        res = false;
+        if (Check_Available_Print(src) == 1 && src[i + 4] == '(')
+          res = true;
       }
       if ((src[i - 1] != ')') && (src[i] == 'a') &&
           (src[i + 1] == 'c' && src[i + 2] == 'o' && src[i + 3] == 's')) {
-           res = false;
-        if (Check_Available_Print(src) == 1 && src[i + 4] == '(') res = true;
+        res = false;
+        if (Check_Available_Print(src) == 1 && src[i + 4] == '(')
+          res = true;
       }
       if (((src[i - 1] != ')') && (src[i] == 'a')) &&
           ((src[i + 1] == 't' && src[i + 2] == 'a' && src[i + 3] == 'n'))) {
-           res = false;
-        if (Check_Available_Print(src) == 1 && src[i + 4] == '(') res = true;
+        res = false;
+        if (Check_Available_Print(src) == 1 && src[i + 4] == '(')
+          res = true;
       }
       if ((src[i - 1] != ')') && (src[i] == 's') &&
           (src[i + 1] == 'q' && src[i + 2] == 'r' && src[i + 3] == 't')) {
-           res = false;
-        if (Check_Available_Print(src) == 1  && src[i + 4] == '(') res = true;
+        res = false;
+        if (Check_Available_Print(src) == 1 && src[i + 4] == '(')
+          res = true;
       }
       if ((src[i - 1] != ')') && (src[i] == 'l') &&
           (src[i + 1] == 'o' && src[i + 2] == 'g')) {
-          res = false;
-          if (Check_Available_Print(src) == 1  && src[i + 3] == '(') res = true;
+        res = false;
+        if (Check_Available_Print(src) == 1 && src[i + 3] == '(')
+          res = true;
       }
       if ((src[i - 1] != ')') && (src[i] == 'l') && (src[i + 1] == 'n')) {
-           res = false;
-          if (Check_Available_Print(src) == 1  && src[i + 2] == '(') res = true;
+        res = false;
+        if (Check_Available_Print(src) == 1 && src[i + 2] == '(')
+          res = true;
       }
       if ((src[i] == 'm' && src[i + 1] == 'o' && src[i + 2] == 'd')) {
-           res = false;
-          if (Check_Available_Print(src) == 1 && (src[i - 1] >= '0' && src[i - 1] <= '9') &&
-         (((src[i + 3] >= '0' && src[i + 3] <= '9')) || (src[i + 3] == '('))) res = true;
+        res = false;
+        if (Check_Available_Print(src) == 1 &&
+            (src[i - 1] >= '0' && src[i - 1] <= '9') &&
+            (((src[i + 3] >= '0' && src[i + 3] <= '9')) || (src[i + 3] == '(')))
+          res = true;
       }
     }
   }

@@ -67,146 +67,181 @@ void MainWindow::operations() {
   }
 }
 
-void MainWindow::on_pushButton_clicked()  // sin
-{
-  ui->result_console->setText(ui->result_console->text() + "sin");
+void MainWindow::on_pushButton_clicked() { // sin
+  if (!find_error())
+    ui->result_console->clear();
+  ui->result_console->setText(ui->result_console->text() + "sin(");
 }
 
-void MainWindow::on_pushButton_2_clicked()  // cos
-{
-  ui->result_console->setText(ui->result_console->text() + "cos");
+void MainWindow::on_pushButton_2_clicked() { // cos
+  if (!find_error())
+    ui->result_console->clear();
+  ui->result_console->setText(ui->result_console->text() + "cos(");
 }
 
-void MainWindow::on_pushButton_3_clicked()  // tan
-{
-  ui->result_console->setText(ui->result_console->text() + "tan");
+void MainWindow::on_pushButton_3_clicked() { // tan
+  if (!find_error())
+    ui->result_console->clear();
+  ui->result_console->setText(ui->result_console->text() + "tan(");
 }
 
-void MainWindow::on_pushButton_4_clicked()  // asin
-{
-  ui->result_console->setText(ui->result_console->text() + "asin");
+void MainWindow::on_pushButton_4_clicked() { // asin
+  if (!find_error())
+    ui->result_console->clear();
+  ui->result_console->setText(ui->result_console->text() + "asin(");
 }
 
-void MainWindow::on_pushButton_5_clicked()  // acos
-{
-  ui->result_console->setText(ui->result_console->text() + "acos");
+void MainWindow::on_pushButton_5_clicked() { // acos
+  if (!find_error())
+    ui->result_console->clear();
+  ui->result_console->setText(ui->result_console->text() + "acos(");
 }
 
-void MainWindow::on_pushButton_6_clicked()  // atan
-{
-  ui->result_console->setText(ui->result_console->text() + "atan");
+void MainWindow::on_pushButton_6_clicked() { // atan
+  if (!find_error())
+    ui->result_console->clear();
+  ui->result_console->setText(ui->result_console->text() + "atan(");
 }
 
-void MainWindow::on_pushButton_7_clicked()  // sqrt
-{
-  ui->result_console->setText(ui->result_console->text() + "sqrt");
+void MainWindow::on_pushButton_7_clicked() { // sqrt
+  if (!find_error())
+    ui->result_console->clear();
+  ui->result_console->setText(ui->result_console->text() + "sqrt(");
 }
 
-void MainWindow::on_pushButton_8_clicked()  // ln
-{
-  ui->result_console->setText(ui->result_console->text() + "ln");
+void MainWindow::on_pushButton_8_clicked() { // ln
+  if (!find_error())
+    ui->result_console->clear();
+  ui->result_console->setText(ui->result_console->text() + "ln(");
 }
 
-void MainWindow::on_pushButton_9_clicked()  // log
-{
-  ui->result_console->setText(ui->result_console->text() + "log");
+void MainWindow::on_pushButton_9_clicked() { // log
+  if (!find_error())
+    ui->result_console->clear();
+  ui->result_console->setText(ui->result_console->text() + "log(");
 }
 
-void MainWindow::on_pushButton_10_clicked()  // mod
-{
-  ui->result_console->setText(ui->result_console->text() + "mod");
+void MainWindow::on_pushButton_10_clicked() { // mod
+  if (!find_error())
+    ui->result_console->clear();
+  ui->result_console->setText(ui->result_console->text() + "mod(");
 }
 
-void MainWindow::on_pushButton_11_clicked()  // X
-{
+void MainWindow::on_pushButton_11_clicked() { // X
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "x");
 }
 
-void MainWindow::on_pushButton_14_clicked()  //+
-{
+void MainWindow::on_pushButton_14_clicked() { //+
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "+");
 }
 
-void MainWindow::on_pushButton_15_clicked()  //-
-{
+void MainWindow::on_pushButton_15_clicked() { //-
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "-");
 }
 
-void MainWindow::on_pushButton_16_clicked()  //*
-{
+void MainWindow::on_pushButton_16_clicked() { //*
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "*");
 }
 
-void MainWindow::on_pushButton_17_clicked()  // /
-{
+void MainWindow::on_pushButton_17_clicked() { // /
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "/");
 }
 
-void MainWindow::on_pushButton_18_clicked()  // ^
-{
+void MainWindow::on_pushButton_18_clicked() { // ^
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "^");
 }
 
-void MainWindow::on_pushButton_13_clicked()  // clear
-{
-    ui->result_console->setText(ui->result_console->text() + "e");
+void MainWindow::on_pushButton_13_clicked() { // e
+  if (!find_error())
+    ui->result_console->clear();
+  ui->result_console->setText(ui->result_console->text() + "e");
 }
 
-void MainWindow::on_pushButton_19_clicked()  // 1
-{
+void MainWindow::on_pushButton_19_clicked() { // 1
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "1");
 }
 
-void MainWindow::on_pushButton_20_clicked()  // 2
-{
+void MainWindow::on_pushButton_20_clicked() { // 2
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "2");
 }
 
-void MainWindow::on_pushButton_21_clicked()  // 3
-{
+void MainWindow::on_pushButton_21_clicked() { // 3
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "3");
 }
 
-void MainWindow::on_pushButton_22_clicked()  // 4
-{
+void MainWindow::on_pushButton_22_clicked() { // 4
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "4");
 }
 
-void MainWindow::on_pushButton_23_clicked()  // 5
-{
+void MainWindow::on_pushButton_23_clicked() { // 5
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "5");
 }
 
-void MainWindow::on_pushButton_24_clicked()  // 6
-{
+void MainWindow::on_pushButton_24_clicked() { // 6
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "6");
 }
 
-void MainWindow::on_pushButton_26_clicked()  // 7
-{
+void MainWindow::on_pushButton_26_clicked() { // 7
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "7");
 }
 
-void MainWindow::on_pushButton_25_clicked()  // 8
-{
+void MainWindow::on_pushButton_25_clicked() { // 8
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "8");
 }
 
-void MainWindow::on_pushButton_30_clicked()  // 9
-{
+void MainWindow::on_pushButton_30_clicked() { // 9
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "9");
 }
 
-void MainWindow::on_pushButton_27_clicked()  // 0
-{
+void MainWindow::on_pushButton_27_clicked() { // 0
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + "0");
 }
 
-void MainWindow::on_pushButton_29_clicked()  //.
-{
+void MainWindow::on_pushButton_29_clicked() { //.
+  if (!find_error())
+    ui->result_console->clear();
   ui->result_console->setText(ui->result_console->text() + ".");
 }
-
+bool MainWindow::find_error() {
+  bool res = true;
+  QString barr = ui->result_console->text().toLatin1();
+  std::string str = barr.toStdString();
+  if (str.find('I') != std::string::npos)
+    res = false;
+  return res;
+}
 void MainWindow::Calc_x() {
   QString x_value = ui->result_console_x->text().toLatin1();
   std::string str_x = x_value.toStdString();
@@ -230,10 +265,10 @@ void MainWindow::Calc_() {
   QString barr = ui->result_console->text().toLatin1();
   std::string str = barr.toStdString();
   if (str.length() <= 255) {
-      std::pair<double, bool> respect = Controller_input->Calc_contr(str, 0);
-      QString new_label;
-      new_label = QString::number(respect.first, 'g', 7);
-      if (respect.second) {
+    std::pair<double, bool> respect = Controller_input->Calc_contr(str, 0);
+    QString new_label;
+    new_label = QString::number(respect.first, 'g', 7);
+    if (respect.second) {
       ui->result_console->setText(new_label);
     } else {
       ui->result_console->setText("Incorrect input");
@@ -243,7 +278,7 @@ void MainWindow::Calc_() {
   }
 }
 
-void MainWindow::on_pushButton_12_clicked()  // =
+void MainWindow::on_pushButton_12_clicked() // =
 {
   QPushButton *Button = (QPushButton *)sender();
   if (ui->result_console->text().contains("x")) {
@@ -254,12 +289,12 @@ void MainWindow::on_pushButton_12_clicked()  // =
   Button->setChecked(false);
 }
 
-void MainWindow::on_pushButton_31_clicked()  // (
+void MainWindow::on_pushButton_31_clicked() // (
 {
   ui->result_console->setText(ui->result_console->text() + "(");
 }
 
-void MainWindow::on_pushButton_32_clicked()  // )
+void MainWindow::on_pushButton_32_clicked() // )
 {
   ui->result_console->setText(ui->result_console->text() + ")");
 }
@@ -280,8 +315,10 @@ void MainWindow::Create_graph() {
   N = (xEnd - xBegin) / h + 2;
   for (X = xBegin; X <= xEnd; X += h) {
     x.push_back(X);
-    if (!Controller_input->Calc_contr(str, X).second) ui->result_console->setText("Incorrect function");
-    else y.push_back(Controller_input->Calc_contr(str, X).first);
+    if (!Controller_input->Calc_contr(str, X).second)
+      ui->result_console->setText("Incorrect function");
+    else
+      y.push_back(Controller_input->Calc_contr(str, X).first);
   }
   ui->widget->addGraph();
   ui->widget->graph()->addData(x, y);

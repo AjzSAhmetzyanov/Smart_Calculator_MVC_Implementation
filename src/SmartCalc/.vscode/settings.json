@@ -1,5 +1,8 @@
 {
-    "files.associations": {
-        "model.h": "c"
-    }
+  "files.associations": {
+    "model.h": "c"
+  },
+  "C_Cpp.clang_format_fallbackStyle": "BasedOnStyle: Google",
+  "C_Cpp.clang_format_style": "BasedOnStyle: Google",
+  "clang-format.style": "file"
 }
