@@ -294,6 +294,8 @@ void s21::Model::check_unary_minus(std::string &str) {
   }
   std::string str_1 = "(-";
   std::string str_2 = "0";
+  if (str.find("+") == 0)
+    str.replace(str.find("+"), str.find("+") + 1, "0+");
   size_t iter = str.find(str_1);
   while (iter != std::string::npos) {
     str.insert(iter + 1, str_2);
@@ -310,6 +312,10 @@ bool s21::Model::fix_e(std::string &str) {
   std::string str_2_ = "*10^";
   auto iter = str.find("e");
   while (iter != std::string::npos) {
+    if (iter == 0) {
+      res = false;
+      break;
+    }
     if (str.find(str_1) != std::string::npos) {
       str.replace(str.find(str_1), str_1.size(), str_2);
     } else if (str.find(str_1_) != std::string::npos) {
@@ -326,27 +332,26 @@ bool s21::Model::fix_e(std::string &str) {
 
 std::pair<double, bool> s21::Model::start(std::string &str, double x) {
   std::pair<double, bool> res = {0, true};
-  for (auto iter : str) {
-    if (iter == 'e')
-      fix_e(str);
+  if (str.find("e") != std::string::npos) {
+    fix_e(str);
     if (!fix_e(str))
       res.second = false;
-    if (str.find(iter) == std::string::npos)
-      break;
   }
-  check_unary_minus(str);
-  if ((Check_Available_Print(str) == 1) &&
-      (Check_Available_Print_Func(str) == 1)) {
-    std::list<Stack> operand;
-    parse_lexeme(str, operand, x);
-    std::list<Stack> main;
-    std::list<Stack> support;
-    polish_note(operand, main, support);
-    std::list<Stack> result;
-    calc_process(main, result);
-    res.first = result.back().get_value();
-  } else {
-    res.second = false;
+  if (res.second) {
+    check_unary_minus(str);
+    if ((Check_Available_Print(str) == 1) &&
+        (Check_Available_Print_Func(str) == 1)) {
+      std::list<Stack> operand;
+      parse_lexeme(str, operand, x);
+      std::list<Stack> main;
+      std::list<Stack> support;
+      polish_note(operand, main, support);
+      std::list<Stack> result;
+      calc_process(main, result);
+      res.first = result.back().get_value();
+    } else {
+      res.second = false;
+    }
   }
   return res;
 }

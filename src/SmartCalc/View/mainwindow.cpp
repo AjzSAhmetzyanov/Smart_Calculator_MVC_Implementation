@@ -238,7 +238,10 @@ bool MainWindow::find_error() {
   bool res = true;
   QString barr = ui->result_console->text().toLatin1();
   std::string str = barr.toStdString();
-  if (str.find('I') != std::string::npos)
+  if (str.find("Incorrect input") != std::string::npos ||
+      str.find("nan") != std::string::npos ||
+      str.find("inf") != std::string::npos ||
+      str.find("-inf") != std::string::npos)
     res = false;
   return res;
 }
